@@ -31,6 +31,7 @@ const Prices = observer(() => {
 const styles = StyleSheet.create({
     scroll_container: {
         width: '100%',
+        maxWidth: 800,
         padding: 10,
     },
     prices_container: {

@@ -118,8 +118,11 @@ export const sellers = {
         logo: trollLogo,
         currency: currency.JPY,
     },
-
 };
+
+export const getLogoForSeller = (sellerName: string) => {
+    return Object.values(sellers).filter(s => s.name === sellerName)[0].logo;
+}
 
 export const sortOosBy = {
     last : 'Last',

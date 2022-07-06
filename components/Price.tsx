@@ -1,7 +1,7 @@
 import {Button, Image, StyleSheet, Text, TextInput, View} from "react-native";
 import PriceType from "../types/PriceType";
 import foilStar from '../assets/foil-star.png';
-import {sellers} from '../utils/utils';
+import {getLogoForSeller, sellers} from '../utils/utils';
 
 
 const Price = ({ result }: PriceType) => {
@@ -17,7 +17,7 @@ const Price = ({ result }: PriceType) => {
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.expansion}>{expansion}</Text>
 
-                <Image style={styles.badge} source={sellers[seller].logo} />
+                <Image style={styles.badge} source={getLogoForSeller(seller)} />
 
 
                 {/*imgs row*/}
