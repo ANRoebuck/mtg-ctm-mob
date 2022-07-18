@@ -7,6 +7,8 @@ export default function App() {
     return (
         <View style={styles.container}>
 
+            <StatusBar />
+
             <SearchBar/>
 
             <Prices />
@@ -21,6 +23,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#3a3f5a',
+        paddingTop: 15,
+        paddingBottom: 15,
         alignItems: 'center',
         justifyContent: 'center',
         // width: 500,

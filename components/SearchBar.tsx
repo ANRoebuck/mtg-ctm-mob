@@ -10,15 +10,21 @@ const SearchBar = observer(() => {
     const [searchTerm, setSearchTerm] = useState('');
 
     const handleSubmit = () => {
+        const toSearchFor = searchTerm;
         setSearchTerm('');
-        getPrices('Axion Now', "Tarmogoyf")
+        pricesStore.clearResults();
+        getPrices('Axion Now', toSearchFor)
             .then(({ prices }) => pricesStore.addPrices(prices));
     }
 
     return (
         <View style={styles.search_container}>
-            <TextInput style={styles.input} onChangeText={setSearchTerm} value={searchTerm} placeholder={"Type to search"}/>
-            <Button title={"Search"} onPress={() => handleSubmit()}/>
+            <TextInput style={styles.input}
+                value={searchTerm} placeholder={"Type to search"}
+                onChangeText={setSearchTerm} 
+                onSubmitEditing={handleSubmit}
+                />
+            {/* <Button title={"Search"} onPress={() => handleSubmit()}/> */}
         </View>)
 
 });
@@ -31,6 +37,7 @@ const styles = StyleSheet.create({
         padding: 10,
         flexDirection: 'row',
         backgroundColor: '#fff',
+        minWidth: '66%',
     },
     input: {
     }

@@ -18,9 +18,9 @@ const Prices = observer(() => {
             keyboardShouldPersistTaps="handled"
         >
             <View style={styles.prices_container}>
-                {pricesStore.sortedPrices.map((result: PriceType) => {
+                {pricesStore.sortedPrices.map((result: PriceType, i: number) => {
                     return (
-                        <Price result={result}/>
+                        <Price result={result} key={i}/>
                     );
                 })}
             </View>

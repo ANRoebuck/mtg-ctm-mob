@@ -6,42 +6,68 @@ import {getLogoForSeller, sellers} from '../utils/utils';
 
 const Price = ({ result }: PriceType) => {
 
-    const { seller, title, imgSrc, productRef, expansion, price, stock, subtitle, isFoil } = result;
+    const { seller, title, imgSrc, productRef, expansion, price_textRepresentation, subtitle, isFoil } = result;
 
     return (
-        <View style={styles.container}>
+        <View style={styles.main_container}>
 
-            <Image style={styles.img} source={imgSrc} />
-
-            <View style={styles.info}>
+            <View style={styles.title_container}>
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.expansion}>{expansion}</Text>
-
-                <Image style={styles.badge} source={getLogoForSeller(seller)} />
-
-
-                {/*imgs row*/}
-                <View style={styles.badges_container}>
-                    {/*<Image style={styles.badge} source={foilStar} />*/}
-                    <Text style={styles.price}>{price}</Text>
-                </View>
-
-
             </View>
 
+            <View style={styles.info_container}>
+
+                <Image style={styles.img} source={{uri: imgSrc}} />
+
+                <View style={styles.info}>
+
+
+                    <Image style={styles.logo} source={getLogoForSeller(seller)} />
+
+                    <View style={styles.price_container}>
+                        <View style={styles.badge_container}>
+                            { isFoil && <Image style={styles.foil_badge} source={foilStar} /> }
+                        </View>
+                        <Text style={styles.price}>{price_textRepresentation}</Text>
+                    </View>
+
+                    <View style={styles.widgets_container}>
+                        <Text style={styles.save_button}></Text>                   
+                        <Text style={styles.shopping_cart}></Text>
+                    </View>
+
+                </View>
+
+            </View>
 
         </View>
     )
 };
 
 const styles = StyleSheet.create({
-    container: {
-        height: 200,
+    main_container: {
         marginVertical: 8,
         borderWidth: 1,
         padding: 10,
-        flexDirection: 'row',
+
         backgroundColor: '#fff',
+    },
+    title_container: {
+
+    },
+    title: {
+        width: '100%',
+        flexWrap: 'wrap',
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        marginBottom: 5,
+        fontSize: 16,
+    },
+
+    info_container: {
+        flexDirection: 'row',
+        height: 160,
     },
     img: {
         // height: 'auto',
@@ -55,12 +81,6 @@ const styles = StyleSheet.create({
         padding: 10,
         alignItems: 'center',
     },
-    title: {
-        width: '100%',
-        flexWrap: 'wrap',
-        textAlign: 'center',
-        marginBottom: 5,
-    },
     expansion: {
         width: '100%',
         flexWrap: 'wrap',
@@ -69,18 +89,44 @@ const styles = StyleSheet.create({
         fontStyle: 'italic',
         marginBottom: 5,
     },
-    badge: {
+    logo: {
         width: 125,
         height: 50,
         resizeMode: 'contain',
         margin: 10,
     },
-    badges_container: {
+
+    price_container: {
+        width: '100%',
         flexDirection: 'row',
     },
     price: {
         textAlign: 'right',
         fontWeight: 'bold',
+        fontSize: 18,
+        alignContent: 'center',
+        width: '60%',
+    },
+    badge_container: {
+        width: '40%',
+        height: 25,
+    },
+    foil_badge: {
+        width: '100%',
+        height: '100%',
+        resizeMode: 'contain',  
+    },
+
+    widgets_container: {
+        width: '100%',
+        flexDirection: 'row',
+        // height: 20,
+    },
+    save_button: {
+
+    },
+    shopping_cart: {
+        width: '20%',
     },
 });
 

@@ -5,15 +5,12 @@ type PriceType = {
     imgSrc: string,
     productRef: string,
     expansion: string,
-    price: number,
-    stock: StockType,
+    price_relativeUnits: number,
+    price_textRepresentation: string,
+    stock_inStock: boolean,
+    stock_level: string,
     subtitle: string,
     isFoil: boolean,
-}
-
-type StockType = {
-    inStock: boolean,
-    stock: number,
 }
 
 export default PriceType;
