@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
         width: '100%',
         maxWidth: 800,
         padding: 10,
-        // marginTop: 80,
     },
     prices_container: {
         width: '100%',

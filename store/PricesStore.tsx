@@ -1,7 +1,7 @@
-import {action, computed, makeAutoObservable, makeObservable, observable} from 'mobx';
+import { action, computed, makeAutoObservable, makeObservable } from 'mobx';
 import PriceType from "../types/PriceType";
 import SellerType from '../types/SellerType';
-import { filterFoilsOptions, sortPriceOptions } from '../utils/utils';
+import { configureSellers, filterFoilsOptions, sortPriceOptions } from '../utils/utils';
 
 
 const dummyPrices: PriceType[] = [
@@ -73,9 +73,6 @@ const dummyPrices: PriceType[] = [
 ]
 
 
-// const sortPriceOptions = { asc: 'Ascending', dsc: 'Descending'};
-// const filterFoilsOpttions = { all: 'All', foil: 'Foil', nonfoil: 'Non-foil' };
-
 const sortPriceAscending = (a: PriceType, b: PriceType): number => a.price_relativeUnits - b.price_relativeUnits;
 const sortPriceDescending = (a: PriceType, b: PriceType): number => b.price_relativeUnits - a.price_relativeUnits;
 const sortByPrice = (sortBy: string) => sortBy === sortPriceOptions.asc ? sortPriceAscending : sortPriceDescending;
@@ -93,14 +90,10 @@ const maybeFilterFoils = (filterBy: string) => {
     }
 }
 
-const defaultSellers: SellerType[] = [
-    'Axion Now', 'Magic Madhouse',
-].map(s => ({ name: s, enabled: true, favourite: false }));
-
 
 class PricesStore {
 
-    sellers: SellerType[] = defaultSellers;
+    sellers: SellerType[] = configureSellers();
     prices: PriceType[] = dummyPrices;
     sortPriceBy: string = sortPriceOptions.asc;
     filterFoilsBy: string = filterFoilsOptions.all;
@@ -115,8 +108,8 @@ class PricesStore {
         makeAutoObservable(this);
     }
 
-    get activeSellers(): string[] {
-        return [];
+    get activeSellers(): SellerType[] {
+        return this.sellers.filter(s => s.enabled);
     }
 
     get sortedPrices(): PriceType[] {

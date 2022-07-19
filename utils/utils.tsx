@@ -17,6 +17,7 @@ import starCityGamesLogo from '../assets/starCityGames-150x60.png';
 import trollLogo from '../assets/trollTrader-150x60.png';
 import unionCountyLogo from '../assets/unionCountyGames-150x60.png';
 import { ImageSourcePropType } from 'react-native';
+import SellerType from '../types/SellerType';
 
 export const currency = {
     EUR: { representation: '€', decimalPlaces: 2, conversionFactor: 1, },
@@ -121,6 +122,12 @@ export const sellers = {
     },
 };
 
+export const configureSellers = (): SellerType[] => {
+    return Object.values(sellers)
+            .slice(0,3)
+            .map((seller): SellerType => ({ ...seller, enabled: true, favourite: false }));
+}
+
 export const getLogoForSeller = (sellerName: string): ImageSourcePropType => {
     return Object.values(sellers).filter(s => s.name === sellerName)[0].logo;
 }
@@ -136,3 +143,14 @@ export const sortPriceOptions = {
     dsc: 'Descending',
 };
 // ↑ ↓
+
+export const sortAndFilterOptions = [
+    {
+        name: 'Price',
+        options: sortPriceOptions,
+    },
+    {
+        name: 'Foils',
+        options: filterFoilsOptions,
+    },
+];

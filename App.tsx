@@ -34,7 +34,7 @@ const App = () => {
             default:
                 return null;
         }
-      }
+    }
 
     return (
         <View style={styles.app}>

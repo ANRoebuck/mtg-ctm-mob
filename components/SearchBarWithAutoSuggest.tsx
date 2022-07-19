@@ -1,4 +1,4 @@
-import {Button, StyleSheet, Text, TextInput, View} from "react-native";
+import {Button, StyleSheet, TextInput, View} from "react-native";
 import {useState} from "react";
 import {getAutocompleteSuggestions, getPrices} from "../gateway/http";
 import {observer, Observer} from "mobx-react";
@@ -24,7 +24,7 @@ const SearchBarWithAutoSuggest = observer(() => {
         setSuggestions([]);
         pricesStore.clearResults();
         pricesStore.activeSellers.forEach(seller => {
-            getPrices(seller, toSearchFor)
+            getPrices(seller.name, toSearchFor)
                 .then((prices: PriceType[]) => pricesStore.addPrices(prices));
         });
     }
