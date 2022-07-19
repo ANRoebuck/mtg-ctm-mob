@@ -2,7 +2,7 @@ import {Button, ScrollView, StyleSheet, Text, TextInput, View} from "react-nativ
 import {useState} from "react";
 import {getPrices} from "../gateway/http";
 import {observer, Observer} from "mobx-react";
-import {pricesStore} from "../store/prices";
+import {pricesStore} from "../store/PricesStore";
 import Price from "./Price";
 import PriceType from "../types/PriceType";
 
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
         width: '100%',
         maxWidth: 800,
         padding: 10,
+        // marginTop: 80,
     },
     prices_container: {
         width: '100%',

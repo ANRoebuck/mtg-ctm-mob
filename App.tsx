@@ -1,32 +1,70 @@
 import {StatusBar} from 'expo-status-bar';
 import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
-import SearchBar from "./components/SearchBar";
+import SearchBarWithAutoSuggest from "./components/SearchBarWithAutoSuggest";
 import Prices from "./components/Prices";
+import { useState } from 'react';
+import NavBar from './components/NavBar';
 
-export default function App() {
+const App = () => {
+
+    const pages = {
+        results: 'Results',
+        options: 'Options',
+        bookmarks: 'Bookmarks',
+        faq: 'FAQ',
+    }
+
+    const [selected, setSelected] = useState(pages.results);
+
+    const getPageToDisplay = () => {
+        switch (selected) {
+            case pages.results:
+                return <Prices/>;
+            case pages.options:
+                return null;
+            case pages.bookmarks:
+                return null;
+            case pages.faq:
+                return null;
+            default:
+                return null;
+        }
+      }
+
     return (
-        <View style={styles.container}>
+        <View style={styles.app}>
 
-            <StatusBar />
+            {/* <StatusBar /> */}
 
-            <SearchBar/>
+            <View style={styles.nav_container}>
+                <NavBar tabs={pages} selected={selected} setSelected={setSelected} />
+            </View>
 
-            <Prices />
+            {getPageToDisplay()}
 
-            <StatusBar style="auto"/>
+            {/* Seach Bar goes gelow to ensure suggestions appear on top of other elements  */}
+            <SearchBarWithAutoSuggest/>
+
+            {/* <StatusBar style="auto"/> */}
 
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
+    app: {
         flex: 1,
         backgroundColor: '#3a3f5a',
         paddingTop: 15,
         paddingBottom: 15,
         alignItems: 'center',
-        justifyContent: 'center',
-        // width: 500,
-    }
+        // justifyContent: 'center',
+        maxHeight: '100%',
+    },
+    nav_container: {
+        marginTop: 100,
+        marginBottom: 10,
+    },
 });
+
+export default App;

@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         marginVertical: 8,
         borderWidth: 1,
         padding: 10,
-
+        borderRadius: 10,
         backgroundColor: '#fff',
     },
     title_container: {
@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
         height: 50,
         resizeMode: 'contain',
         margin: 10,
+        borderRadius: 5,
     },
 
     price_container: {

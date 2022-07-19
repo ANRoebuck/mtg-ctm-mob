@@ -1,7 +1,16 @@
 import axios from "axios";
 
+const ctm = 'https://mtg-ctm-be.herokuapp.com/api';
+const scryfall = 'https://api.scryfall.com';
 
-export const getPrices = (seller: string, searchTerm: string) => axios
-    .post('https://mtg-ctm-be.herokuapp.com/api/prices', { seller, searchTerm })
+
+export const getPrices = (seller: string, searchTerm: string): Promise<[]> => axios
+    .post(`${ctm}/prices`, { seller, searchTerm })
     .then(({ data }) => data)
+    .catch(() => []);
+
+
+export const getAutocompleteSuggestions = (searchTerm: string): Promise<[]> => axios
+    .get(`${scryfall}/cards/autocomplete?q=${searchTerm}`)
+    .then(({ data }) => data.data)
     .catch(() => []);

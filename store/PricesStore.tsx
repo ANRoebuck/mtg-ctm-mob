@@ -70,9 +70,14 @@ const dummyPrices: PriceType[] = [
     },
 ]
 
+const sellers: string[] = ['Axion Now'];
+
+const sortPriceAscending = (a: PriceType, b: PriceType) => a.price_relativeUnits - b.price_relativeUnits;
+
+
 class PricesStore {
 
-    sellers: string[] = [];
+    sellers: string[] = sellers;
     // prices: PriceInterface[] = [];
     prices: PriceType[] = dummyPrices;
 
@@ -97,7 +102,7 @@ class PricesStore {
     }
 
     get sortedPrices(): PriceType[] {
-        return this.prices;
+        return this.prices.slice().sort(sortPriceAscending);
     }
 
     get numberOfPrices(): number {
