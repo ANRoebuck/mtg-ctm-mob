@@ -133,6 +133,17 @@ class PricesStore {
     setFilterFoilsBy(filterBy: string): void {
         this.filterFoilsBy = filterBy;
     }
+
+    toggleSellerEnabled(sellerName: string): void {
+        this.sellers = this.sellers.map(s => {
+            let { enabled, name } = s;
+            if (name === sellerName) enabled = !enabled;
+            return {
+                ...s,
+                enabled,
+            };
+        });
+    }
 }
 
 export const pricesStore = new PricesStore();

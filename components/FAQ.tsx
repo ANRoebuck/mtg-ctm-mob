@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 interface iFAQ {
     title: string,
@@ -31,7 +31,7 @@ const FAQs: iFAQ[] = [
         + 'If ever that changes, this section will be updated accordingly.',
     },
     {
-        title: 'When will [insert website] be added?',
+        title: 'When will [website] be added?',
         body: 'CtM is produced as a passion project by a developer working in his spare time. '
         + 'Each retailer\'s website is built differently, which means they are not all equally easy to add. '
         + 'Additionally, basic vetting - searching for a few popular or valuable cards - might show that a particular retailer doesn\'t have good stock levels. '
@@ -47,7 +47,7 @@ const FAQs: iFAQ[] = [
 const FAQ = () => {
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
 
             {FAQs.map((faq: iFAQ, i: number) =>
                 <View style={styles.card} key={i}>
@@ -60,7 +60,7 @@ const FAQ = () => {
                 </View>
             )}
 
-        </View>
+        </ScrollView>
     )
 }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 
 
 interface ButtonProps {
@@ -19,9 +19,11 @@ const NavButton = ({ value, selected, setSelected }: ButtonProps) => {
     const isSelected = value === selected;
 
     return (
-        <TouchableHighlight style={isSelected ? styles.nav_button_selected : styles.nav_button} onPress={() => setSelected(value)}>
-            <Text>{value}</Text>
-        </TouchableHighlight>
+        <TouchableWithoutFeedback onPress={() => setSelected(value)}>
+            <View  style={isSelected ? styles.nav_button_selected : styles.nav_button}>
+                <Text>{value}</Text>
+            </View>
+        </TouchableWithoutFeedback>
     )
 }
 

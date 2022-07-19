@@ -1,4 +1,4 @@
-import {Button, Image, StyleSheet, Text, TextInput, TouchableHighlight, View} from "react-native";
+import { Button, Image, StyleSheet, Text, TextInput, TouchableHighlight, View } from "react-native";
 import PriceType from "../types/PriceType";
 import foilStar from '../assets/foil-star.png';
 import {getLogoForSeller, sellers} from '../utils/utils';

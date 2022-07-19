@@ -143,14 +143,3 @@ export const sortPriceOptions = {
     dsc: 'Descending',
 };
 // ↑ ↓
-
-export const sortAndFilterOptions = [
-    {
-        name: 'Price',
-        options: sortPriceOptions,
-    },
-    {
-        name: 'Foils',
-        options: filterFoilsOptions,
-    },
-];
