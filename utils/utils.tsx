@@ -16,6 +16,7 @@ import pgLeedsLogo from '../assets/patriotGamesLeeds-150x60.png';
 import starCityGamesLogo from '../assets/starCityGames-150x60.png';
 import trollLogo from '../assets/trollTrader-150x60.png';
 import unionCountyLogo from '../assets/unionCountyGames-150x60.png';
+import { ImageSourcePropType } from 'react-native';
 
 export const currency = {
     EUR: { representation: '€', decimalPlaces: 2, conversionFactor: 1, },
@@ -120,8 +121,8 @@ export const sellers = {
     },
 };
 
-export const getLogoForSeller = (sellerName: string) => {
-    return Object.values(sellers).find(s => s.name === sellerName)?.logo;
+export const getLogoForSeller = (sellerName: string): ImageSourcePropType => {
+    return Object.values(sellers).filter(s => s.name === sellerName)[0].logo;
 }
 
 export const filterFoilsOptions = {

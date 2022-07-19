@@ -23,7 +23,7 @@ const SearchBarWithAutoSuggest = observer(() => {
         setSearchTerm('');
         setSuggestions([]);
         pricesStore.clearResults();
-        pricesStore.sellers.forEach(seller => {
+        pricesStore.activeSellers.forEach(seller => {
             getPrices(seller, toSearchFor)
                 .then((prices: PriceType[]) => pricesStore.addPrices(prices));
         });

@@ -1,10 +1,14 @@
-import {StatusBar} from 'expo-status-bar';
-import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, View } from 'react-native';
 import SearchBarWithAutoSuggest from "./components/SearchBarWithAutoSuggest";
 import Prices from "./components/Prices";
 import React, { useState } from 'react';
 import NavBar from './components/NavBar';
 import FAQ from './components/FAQ';
+import Options from './components/Options';
+import Bookmarks from './components/Bookmarks';
+
+
 
 const App = () => {
 
@@ -22,9 +26,9 @@ const App = () => {
             case pages.results:
                 return <Prices/>;
             case pages.options:
-                return null;
+                return <Options/>;
             case pages.bookmarks:
-                return null;
+                return <Bookmarks/>;
             case pages.faq:
                 return <FAQ/>;
             default:

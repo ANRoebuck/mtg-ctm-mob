@@ -20,7 +20,7 @@ const Options = observer(() => {
             </View> */}
 
             <View>
-                {sellerOptions}
+                {/* {sellerOptions} */}
             </View>
             
         </View>

@@ -1,8 +1,12 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
+interface iFAQ {
+    title: string,
+    body: string,
+}
 
-const FAQs = [
+const FAQs: iFAQ[] = [
     {
         title: 'Disclaimer',
         body: 'CtM does not endorse any retailer whose prices are listed in this app. '
@@ -45,8 +49,8 @@ const FAQ = () => {
     return (
         <View style={styles.container}>
 
-            {FAQs.map(faq =>
-                <View style={styles.card}>
+            {FAQs.map((faq: iFAQ, i: number) =>
+                <View style={styles.card} key={i}>
                     <Text style={styles.card_title}>
                         {faq.title}
                     </Text>
