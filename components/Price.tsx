@@ -1,10 +1,13 @@
-import {Button, Image, StyleSheet, Text, TextInput, View} from "react-native";
+import {Button, Image, StyleSheet, Text, TextInput, TouchableHighlight, View} from "react-native";
 import PriceType from "../types/PriceType";
 import foilStar from '../assets/foil-star.png';
 import {getLogoForSeller, sellers} from '../utils/utils';
 
+interface PriceProps {
+    result: PriceType
+}
 
-const Price = ({ result }: PriceType) => {
+const Price = ({ result }: PriceProps) => {
 
     const { seller, title, imgSrc, productRef, expansion, price_textRepresentation, subtitle, isFoil } = result;
 
@@ -33,8 +36,13 @@ const Price = ({ result }: PriceType) => {
                     </View>
 
                     <View style={styles.widgets_container}>
-                        <Text style={styles.save_button}></Text>                   
-                        <Text style={styles.shopping_cart}></Text>
+                        <TouchableHighlight style={styles.widget} >
+                            <Text >Save</Text>   
+                        </TouchableHighlight>
+                
+                        <TouchableHighlight style={styles.widget} onPress={() => window.open(productRef, "_blank")}>
+                            <Text >Link</Text>
+                        </TouchableHighlight>
                     </View>
 
                 </View>
@@ -100,6 +108,7 @@ const styles = StyleSheet.create({
     price_container: {
         width: '100%',
         flexDirection: 'row',
+        margin: 10,
     },
     price: {
         textAlign: 'right',
@@ -120,14 +129,14 @@ const styles = StyleSheet.create({
 
     widgets_container: {
         width: '100%',
+        margin: 10,
         flexDirection: 'row',
-        // height: 20,
+        justifyContent: 'flex-end',
     },
-    save_button: {
-
-    },
-    shopping_cart: {
+    widget: {
         width: '20%',
+        textAlign: 'center',
+        marginHorizontal: 5,
     },
 });
 

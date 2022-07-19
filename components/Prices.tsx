@@ -1,8 +1,6 @@
-import {Button, ScrollView, StyleSheet, Text, TextInput, View} from "react-native";
-import {useState} from "react";
-import {getPrices} from "../gateway/http";
-import {observer, Observer} from "mobx-react";
-import {pricesStore} from "../store/PricesStore";
+import { ScrollView, StyleSheet, View } from "react-native";
+import { observer } from "mobx-react";
+import { pricesStore } from "../store/PricesStore";
 import Price from "./Price";
 import PriceType from "../types/PriceType";
 

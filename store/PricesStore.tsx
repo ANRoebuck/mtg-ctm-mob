@@ -1,5 +1,7 @@
 import {action, computed, makeAutoObservable, makeObservable, observable} from 'mobx';
 import PriceType from "../types/PriceType";
+import SellerType from '../types/SellerType';
+import { filterFoilsOptions, sortPriceOptions } from '../utils/utils';
 
 
 const dummyPrices: PriceType[] = [
@@ -70,16 +72,38 @@ const dummyPrices: PriceType[] = [
     },
 ]
 
-const sellers: string[] = ['Axion Now'];
 
-const sortPriceAscending = (a: PriceType, b: PriceType) => a.price_relativeUnits - b.price_relativeUnits;
+// const sortPriceOptions = { asc: 'Ascending', dsc: 'Descending'};
+// const filterFoilsOpttions = { all: 'All', foil: 'Foil', nonfoil: 'Non-foil' };
+
+const sortPriceAscending = (a: PriceType, b: PriceType): number => a.price_relativeUnits - b.price_relativeUnits;
+const sortPriceDescending = (a: PriceType, b: PriceType): number => b.price_relativeUnits - a.price_relativeUnits;
+const sortByPrice = (sortBy: string) => sortBy === sortPriceOptions.asc ? sortPriceAscending : sortPriceDescending;
+
+const filterFoilOnly = (p: PriceType): boolean => p.isFoil;
+const filterNonFoilOnly = (p: PriceType): boolean => !p.isFoil;
+const maybeFilterFoils = (filterBy: string) => {
+    switch(filterBy) {
+        case filterFoilsOptions.foil:
+            return filterFoilOnly;
+        case filterFoilsOptions.nonFoil:
+            return filterNonFoilOnly;
+        default:
+            return () => true;
+    }
+}
+
+const defaultSellers: SellerType[] = [
+    'Axion Now', 'Magic Madhouse',
+].map(s => ({ name: s, enabled: true, favourite: false }));
 
 
 class PricesStore {
 
-    sellers: string[] = sellers;
-    // prices: PriceInterface[] = [];
+    sellers: SellerType[] = defaultSellers;
     prices: PriceType[] = dummyPrices;
+    sortPriceBy: string = sortPriceOptions.asc;
+    filterFoilsBy: string = filterFoilsOptions.all;
 
     constructor() {
         // makeObservable(this, {
@@ -91,24 +115,31 @@ class PricesStore {
         makeAutoObservable(this);
     }
 
+    get activeSellers(): string[] {
+        return [];
+    }
+
+    get sortedPrices(): PriceType[] {
+        return this.prices.slice()
+            .filter(maybeFilterFoils(this.filterFoilsBy))
+            .sort(sortByPrice(this.sortPriceBy));
+    }
+
     clearResults(): void {
         this.prices = [];
     }
 
-    addPrices(pricesToAdd: []): void {
-        console.log(pricesToAdd);
+    addPrices(pricesToAdd: PriceType[]): void {
         this.prices = [...this.prices, ...pricesToAdd];
-        console.log(this.prices.length);
     }
 
-    get sortedPrices(): PriceType[] {
-        return this.prices.slice().sort(sortPriceAscending);
+    setSortPriceBy(sortBy: string): void {
+        this.sortPriceBy = sortBy;
     }
 
-    get numberOfPrices(): number {
-        return this.prices.length;
+    setFilterFoilsBy(filterBy: string): void {
+        this.filterFoilsBy = filterBy;
     }
-
 }
 
 export const pricesStore = new PricesStore();

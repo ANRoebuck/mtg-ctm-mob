@@ -4,6 +4,7 @@ import {getAutocompleteSuggestions, getPrices} from "../gateway/http";
 import {observer, Observer} from "mobx-react";
 import {pricesStore} from "../store/PricesStore";
 import SearchSuggestions from "./SearchSuggestions";
+import PriceType from "../types/PriceType";
 
 
 const SearchBarWithAutoSuggest = observer(() => {
@@ -24,7 +25,7 @@ const SearchBarWithAutoSuggest = observer(() => {
         pricesStore.clearResults();
         pricesStore.sellers.forEach(seller => {
             getPrices(seller, toSearchFor)
-                .then(({ prices }) => pricesStore.addPrices(prices));
+                .then((prices: PriceType[]) => pricesStore.addPrices(prices));
         });
     }
 

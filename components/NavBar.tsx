@@ -47,8 +47,7 @@ const styles = StyleSheet.create({
     nav_button_selected: {
         padding: 10,
         borderRadius: 5,
-        // backgroundColor: '#fff',
-        backgroundColor: 'green',
+        backgroundColor: 'lightgray',
         marginHorizontal: 5,
     },
 });

@@ -6,7 +6,7 @@ const scryfall = 'https://api.scryfall.com';
 
 export const getPrices = (seller: string, searchTerm: string): Promise<[]> => axios
     .post(`${ctm}/prices`, { seller, searchTerm })
-    .then(({ data }) => data)
+    .then(({ data }) => data.prices)
     .catch(() => []);
 
 
