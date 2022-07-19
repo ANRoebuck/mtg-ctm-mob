@@ -28,8 +28,8 @@ const NavButton = ({ value, selected, setSelected }: ButtonProps) => {
 const NavBar = ({ tabs, selected, setSelected }: NavBarProps) => {
     return(
         <View style={styles.nav_bar}>
-            {Object.values(tabs).map(tab =>
-                <NavButton value={tab} selected={selected} setSelected={setSelected} />)}
+            {Object.values(tabs).map((tab, i) =>
+                <NavButton value={tab} selected={selected} setSelected={setSelected} key={i}/>)}
         </View>
     )
 }

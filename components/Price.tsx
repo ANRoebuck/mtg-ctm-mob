@@ -2,6 +2,7 @@ import {Button, Image, StyleSheet, Text, TextInput, TouchableHighlight, View} fr
 import PriceType from "../types/PriceType";
 import foilStar from '../assets/foil-star.png';
 import {getLogoForSeller, sellers} from '../utils/utils';
+import { storeData } from "../gateway/storage";
 
 interface PriceProps {
     result: PriceType
@@ -36,7 +37,7 @@ const Price = ({ result }: PriceProps) => {
                     </View>
 
                     <View style={styles.widgets_container}>
-                        <TouchableHighlight style={styles.widget} >
+                        <TouchableHighlight style={styles.widget} onPress={() => storeData(`${seller}_${title}`, result)}>
                             <Text >Save</Text>   
                         </TouchableHighlight>
                 

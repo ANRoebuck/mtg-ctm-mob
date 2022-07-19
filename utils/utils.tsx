@@ -124,12 +124,6 @@ export const getLogoForSeller = (sellerName: string) => {
     return Object.values(sellers).find(s => s.name === sellerName)?.logo;
 }
 
-export const sortOosBy = {
-    last : 'Last',
-    exclude : 'Exclude',
-    none : 'Don\'t sort',
-};
-
 export const filterFoilsOptions = {
     all: 'All',
     foil: 'Foil',

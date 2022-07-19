@@ -6,9 +6,6 @@ import PriceType from "../types/PriceType";
 
 
 const Prices = observer(() => {
-
-    console.log(pricesStore.sortedPrices);
-
     return (
         <ScrollView
             style={styles.scroll_container}
