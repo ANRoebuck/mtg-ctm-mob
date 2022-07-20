@@ -1,6 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
+export const storageKeys = {
+  sortPriceBy: 'ctm_sortByPrice',
+  filterFoils: 'ctm_filterFoils',
+  bookmarkedPrices: '',
+}
+
 export const storeData = async (uniqueKey: string, data: [] | {}) => {
     storeDataString(uniqueKey, JSON.stringify(data));
 }
@@ -15,7 +21,7 @@ export const storeDataString = async (uniqueKey: string, data: string) => {
 
 export const getStoredDataOrDefault = async (uniqueKey: string, defaultValue: any): Promise<any> => {
     const storedString = await getDataAsString(uniqueKey);
-    return storedString === '' ? defaultValue : storedString ;
+    return storedString === '' ? defaultValue : JSON.parse(storedString) ;
 }
 
 export const getStoredData = async (uniqueKey: string) : Promise<any> => {

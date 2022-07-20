@@ -4,16 +4,18 @@ import foilStar from '../assets/foil-star.png';
 import {getLogoForSeller, sellers} from '../utils/utils';
 import { storeData } from "../gateway/storage";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { pricesStore } from "../store/PricesStore";
+import { observer } from "mobx-react";
 
 interface PriceProps {
-    result: PriceType
+    result: PriceType,
 }
 
-const Price = ({ result }: PriceProps) => {
+const Price = observer(({ result }: PriceProps) => {
 
     const { seller, title, imgSrc, productRef, expansion, price_textRepresentation, subtitle, isFoil } = result;
 
-    const isBookmarked = false;
+    const isBookmarked=pricesStore.isBookmarked(result)
 
     return (
         <View style={styles.main_container}>
@@ -40,7 +42,8 @@ const Price = ({ result }: PriceProps) => {
                     </View>
 
                     <View style={styles.widgets_container}>
-                        <TouchableHighlight style={styles.widget} onPress={() => storeData(`${seller}_${title}`, result)}>
+                        <TouchableHighlight style={styles.widget}onPress={() =>
+                            isBookmarked ? pricesStore.deleteBookmark(result) : pricesStore.addBookmarks([result])}>
                             <Icon name={isBookmarked ? 'trash-o' : 'save'} size={25} color={'#000000'}/>
                         </TouchableHighlight>
                 
@@ -55,7 +58,7 @@ const Price = ({ result }: PriceProps) => {
 
         </View>
     )
-};
+});
 
 const styles = StyleSheet.create({
     main_container: {

@@ -1,5 +1,5 @@
 import { action, computed, makeAutoObservable, makeObservable } from 'mobx';
-import { getStoredDataOrDefault, storeData, storeDataString } from '../gateway/storage';
+import { getStoredDataOrDefault, storageKeys, storeData, storeDataString } from '../gateway/storage';
 import PriceType from "../types/PriceType";
 import SellerType from '../types/SellerType';
 import { configureSellers, filterFoilsOptions, sortPriceOptions } from '../utils/utils';
@@ -74,13 +74,11 @@ const dummyPrices: PriceType[] = [
 ]
 
 
-const sortByPriceKey = 'ctm_sortByPrice';
 const sortPriceAscending = (a: PriceType, b: PriceType): number => a.price_relativeUnits - b.price_relativeUnits;
 const sortPriceDescending = (a: PriceType, b: PriceType): number => b.price_relativeUnits - a.price_relativeUnits;
 const sortByPrice = (sortBy: string) => sortBy === sortPriceOptions.asc ? sortPriceAscending : sortPriceDescending;
 
 
-const filterFoilsKey = 'ctm_filterFoils';
 const filterFoilOnly = (p: PriceType): boolean => p.isFoil;
 const filterNonFoilOnly = (p: PriceType): boolean => !p.isFoil;
 const maybeFilterFoils = (filterBy: string) => {
@@ -94,11 +92,14 @@ const maybeFilterFoils = (filterBy: string) => {
     }
 }
 
+const samePrice = (a: PriceType, b: PriceType): boolean => a.seller === b.seller && a.title === b.title && a.subtitle === b.subtitle;
+
 
 class PricesStore {
 
     sellers: SellerType[] = configureSellers();
-    prices: PriceType[] = dummyPrices;
+    discoveredPrices: PriceType[] = dummyPrices;
+    bookmarkedPrices: PriceType[] = [];
     sortPriceBy: string = sortPriceOptions.asc;
     filterFoilsBy: string = filterFoilsOptions.all;
 
@@ -114,8 +115,9 @@ class PricesStore {
     }
 
     loadStoredValues = (): void => {
-        getStoredDataOrDefault(sortByPriceKey, sortPriceOptions.asc).then(s => this.setSortPriceBy(s));
-        getStoredDataOrDefault(filterFoilsKey, filterFoilsOptions.all).then(s => this.setFilterFoilsBy(s));
+        // getStoredDataOrDefault(storageKeys.sortPriceBy, sortPriceOptions.asc).then(s => this.setSortPriceBy(s));
+        // getStoredDataOrDefault(storageKeys.filterFoils, filterFoilsOptions.all).then(s => this.setFilterFoilsBy(s));
+        // getStoredDataOrDefault(storageKeys.bookmarkedPrices, []).then(b => this.addBookmarks(b));
     }
 
     get activeSellers(): SellerType[] {
@@ -123,7 +125,7 @@ class PricesStore {
     }
 
     get sortedPrices(): PriceType[] {
-        return this.prices.slice()
+        return this.discoveredPrices.slice()
             .filter(({ seller }) => this.isActiveSeller(seller))
             .filter(maybeFilterFoils(this.filterFoilsBy))
             .sort(sortByPrice(this.sortPriceBy));
@@ -134,21 +136,37 @@ class PricesStore {
     }
 
     clearResults = (): void => {
-        this.prices = [];
+        this.discoveredPrices = [];
     }
 
     addPrices = (pricesToAdd: PriceType[]): void => {
-        this.prices = [...this.prices, ...pricesToAdd];
+        this.discoveredPrices = [...this.discoveredPrices, ...pricesToAdd];
+    }
+
+    addBookmarks = (bookmarksToAdd: PriceType[]): void => {
+        const updatedBookmarks = [...this.bookmarkedPrices, ...bookmarksToAdd];
+        this.bookmarkedPrices = updatedBookmarks;
+        storeData(storageKeys.bookmarkedPrices, updatedBookmarks);
+    }
+
+    deleteBookmark = (bookmarkToDelete: PriceType): void => {
+        const updatedBookmarks = this.bookmarkedPrices.filter((p) => !samePrice(p, bookmarkToDelete));
+        this.bookmarkedPrices = updatedBookmarks;
+        storeData(storageKeys.bookmarkedPrices, updatedBookmarks);
+    }
+
+    isBookmarked = (maybeBookmarked: PriceType): boolean => {
+        return this.bookmarkedPrices.some(b => samePrice(b, maybeBookmarked));
     }
 
     setSortPriceBy = (sortBy: string): void => {
         this.sortPriceBy = sortBy;
-        storeDataString(sortByPriceKey, sortBy);
+        storeDataString(storageKeys.sortPriceBy, sortBy);
     }
 
     setFilterFoilsBy = (filterBy: string): void => {
         this.filterFoilsBy = filterBy;
-        storeDataString(filterFoilsKey, filterBy);
+        storeDataString(storageKeys.filterFoils, filterBy);
     }
 
     toggleSellerEnabled = (sellerName: string): void => {
