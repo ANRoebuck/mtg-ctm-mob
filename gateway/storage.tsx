@@ -1,11 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-export const storeData = async (uniqueKey: string, data: [] | {} | string) => {
+export const storeData = async (uniqueKey: string, data: [] | {}) => {
     storeDataString(uniqueKey, JSON.stringify(data));
 }
 
-const storeDataString = async (uniqueKey: string, data: string) => {
+export const storeDataString = async (uniqueKey: string, data: string) => {
     try {
       await AsyncStorage.setItem(uniqueKey, data)
     } catch (e) {
@@ -13,7 +13,12 @@ const storeDataString = async (uniqueKey: string, data: string) => {
     }
 }
 
-export const getData = async (uniqueKey: string) : Promise<any> => {
+export const getStoredDataOrDefault = async (uniqueKey: string, defaultValue: any): Promise<any> => {
+    const storedString = await getDataAsString(uniqueKey);
+    return storedString === '' ? defaultValue : storedString ;
+}
+
+export const getStoredData = async (uniqueKey: string) : Promise<any> => {
     return getDataAsString(uniqueKey).then(dataString => JSON.parse(dataString));
 }
 

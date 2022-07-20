@@ -37,16 +37,12 @@ export const sellers = {
         logo: bigOrbitLogo,
         currency: currency.GBP,
     },
-    chaos: {
-        name: 'Chaos Cards',
-        logo: chaosLogo,
-        currency: currency.GBP,
-    },
-    hareruya: {
-        name: 'Hareruya',
-        logo: hareruyaLogo,
-        currency: currency.GBP,
-    },
+    // chaos: {
+    //     name: 'Chaos Cards',
+    //     logo: chaosLogo,
+    //     currency: currency.GBP,
+    // },
+
     harlequins: {
         name: 'Harlequins',
         logo: harlequinsLogo,
@@ -82,11 +78,11 @@ export const sellers = {
         logo: manaleakLogo,
         currency: currency.GBP,
     },
-    mkm: {
-        name: 'Magic Card Market',
-        logo: mkmLogo,
-        currency: currency.EUR,
-    },
+    // mkm: {
+    //     name: 'Magic Card Market',
+    //     logo: mkmLogo,
+    //     currency: currency.EUR,
+    // },
     mountBatten: {
         name: 'Mountbatten Collectables',
         logo: mountBattenLogo,
@@ -102,30 +98,35 @@ export const sellers = {
         logo: pgLeedsLogo,
         currency: currency.GBP,
     },
-    unionCounty: {
-        name: 'Union County Games',
-        logo: unionCountyLogo,
-        currency: currency.GBP,
-    },
-
-    // Non-UK
-
-    starCityGames: {
-        name: 'Star City Games',
-        logo: starCityGamesLogo,
-        currency: currency.USD,
-    },
     trollTrader: {
         name: 'Troll Trader',
         logo: trollLogo,
         currency: currency.JPY,
     },
+    // unionCounty: {
+    //     name: 'Union County Games',
+    //     logo: unionCountyLogo,
+    //     currency: currency.GBP,
+    // },
+
+
+
+    // Non-UK
+
+    hareruya: {
+        name: 'Hareruya',
+        logo: hareruyaLogo,
+        currency: currency.GBP,
+    },
+    starCityGames: {
+        name: 'Star City Games',
+        logo: starCityGamesLogo,
+        currency: currency.USD,
+    },
 };
 
 export const configureSellers = (): SellerType[] => {
-    return Object.values(sellers)
-            .slice(0,3)
-            .map((seller): SellerType => ({ ...seller, enabled: true, favourite: false }));
+    return Object.values(sellers).map((seller): SellerType => ({ ...seller, enabled: true, favourite: false }));
 }
 
 export const getLogoForSeller = (sellerName: string): ImageSourcePropType => {

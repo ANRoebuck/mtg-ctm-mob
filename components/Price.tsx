@@ -1,8 +1,9 @@
-import { Button, Image, StyleSheet, Text, TextInput, TouchableHighlight, View } from "react-native";
+import { Button, Image, Linking, StyleSheet, Text, TextInput, TouchableHighlight, View } from "react-native";
 import PriceType from "../types/PriceType";
 import foilStar from '../assets/foil-star.png';
 import {getLogoForSeller, sellers} from '../utils/utils';
 import { storeData } from "../gateway/storage";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 interface PriceProps {
     result: PriceType
@@ -11,6 +12,8 @@ interface PriceProps {
 const Price = ({ result }: PriceProps) => {
 
     const { seller, title, imgSrc, productRef, expansion, price_textRepresentation, subtitle, isFoil } = result;
+
+    const isBookmarked = false;
 
     return (
         <View style={styles.main_container}>
@@ -38,11 +41,11 @@ const Price = ({ result }: PriceProps) => {
 
                     <View style={styles.widgets_container}>
                         <TouchableHighlight style={styles.widget} onPress={() => storeData(`${seller}_${title}`, result)}>
-                            <Text >Save</Text>   
+                            <Icon name={isBookmarked ? 'trash-o' : 'save'} size={25} color={'#000000'}/>
                         </TouchableHighlight>
                 
-                        <TouchableHighlight style={styles.widget} onPress={() => window.open(productRef, "_blank")}>
-                            <Text >Link</Text>
+                        <TouchableHighlight style={styles.widget} onPress={() => Linking.openURL(productRef)}>
+                            <Icon name={'shopping-cart'} size={25} color={'#000000'}/>
                         </TouchableHighlight>
                     </View>
 

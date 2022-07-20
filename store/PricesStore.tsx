@@ -1,4 +1,5 @@
 import { action, computed, makeAutoObservable, makeObservable } from 'mobx';
+import { getStoredDataOrDefault, storeData, storeDataString } from '../gateway/storage';
 import PriceType from "../types/PriceType";
 import SellerType from '../types/SellerType';
 import { configureSellers, filterFoilsOptions, sortPriceOptions } from '../utils/utils';
@@ -73,10 +74,13 @@ const dummyPrices: PriceType[] = [
 ]
 
 
+const sortByPriceKey = 'ctm_sortByPrice';
 const sortPriceAscending = (a: PriceType, b: PriceType): number => a.price_relativeUnits - b.price_relativeUnits;
 const sortPriceDescending = (a: PriceType, b: PriceType): number => b.price_relativeUnits - a.price_relativeUnits;
 const sortByPrice = (sortBy: string) => sortBy === sortPriceOptions.asc ? sortPriceAscending : sortPriceDescending;
 
+
+const filterFoilsKey = 'ctm_filterFoils';
 const filterFoilOnly = (p: PriceType): boolean => p.isFoil;
 const filterNonFoilOnly = (p: PriceType): boolean => !p.isFoil;
 const maybeFilterFoils = (filterBy: string) => {
@@ -106,6 +110,12 @@ class PricesStore {
         //     numberOfPrices: computed,
         // });
         makeAutoObservable(this);
+        this.loadStoredValues();
+    }
+
+    loadStoredValues = (): void => {
+        getStoredDataOrDefault(sortByPriceKey, sortPriceOptions.asc).then(s => this.setSortPriceBy(s));
+        getStoredDataOrDefault(filterFoilsKey, filterFoilsOptions.all).then(s => this.setFilterFoilsBy(s));
     }
 
     get activeSellers(): SellerType[] {
@@ -114,27 +124,34 @@ class PricesStore {
 
     get sortedPrices(): PriceType[] {
         return this.prices.slice()
+            .filter(({ seller }) => this.isActiveSeller(seller))
             .filter(maybeFilterFoils(this.filterFoilsBy))
             .sort(sortByPrice(this.sortPriceBy));
     }
 
-    clearResults(): void {
+    isActiveSeller = (seller: string) => {
+        return this.sellers.find(({ name }) => name === seller)?.enabled;
+    }
+
+    clearResults = (): void => {
         this.prices = [];
     }
 
-    addPrices(pricesToAdd: PriceType[]): void {
+    addPrices = (pricesToAdd: PriceType[]): void => {
         this.prices = [...this.prices, ...pricesToAdd];
     }
 
-    setSortPriceBy(sortBy: string): void {
+    setSortPriceBy = (sortBy: string): void => {
         this.sortPriceBy = sortBy;
+        storeDataString(sortByPriceKey, sortBy);
     }
 
-    setFilterFoilsBy(filterBy: string): void {
+    setFilterFoilsBy = (filterBy: string): void => {
         this.filterFoilsBy = filterBy;
+        storeDataString(filterFoilsKey, filterBy);
     }
 
-    toggleSellerEnabled(sellerName: string): void {
+    toggleSellerEnabled = (sellerName: string): void => {
         this.sellers = this.sellers.map(s => {
             let { enabled, name } = s;
             if (name === sellerName) enabled = !enabled;

@@ -5,7 +5,7 @@ import Prices from "./components/Prices";
 import React, { useState } from 'react';
 import NavBar from './components/NavBar';
 import FAQ from './components/FAQ';
-import Options from './components/Options';
+import Options from './components/options/Options';
 import Bookmarks from './components/Bookmarks';
 
 
