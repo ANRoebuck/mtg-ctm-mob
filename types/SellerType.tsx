@@ -1,11 +1,11 @@
-import { ImageSourcePropType } from "react-native";
+import { ImageSourcePropType } from 'react-native';
 
 type SellerType = {
-    name: string,
-    logo: ImageSourcePropType,
-    currency: {},
-    enabled: boolean,
-    favourite: boolean,
-}
+    name: string;
+    logo: ImageSourcePropType;
+    currency: {};
+    enabled: boolean;
+    favourite: boolean;
+};
 
 export default SellerType;

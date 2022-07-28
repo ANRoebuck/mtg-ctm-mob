@@ -1,48 +1,53 @@
-import {Button, StyleSheet, TextInput, View} from "react-native";
-import {useState} from "react";
-import {getAutocompleteSuggestions, getPrices} from "../gateway/http";
-import {observer, Observer} from "mobx-react";
-import {pricesStore} from "../store/PricesStore";
-import SearchSuggestions from "./SearchSuggestions";
-import PriceType from "../types/PriceType";
-
+import { StyleSheet, TextInput, View } from 'react-native';
+import { useState } from 'react';
+import { getAutocompleteSuggestions, getPrices } from '../gateway/http';
+import { observer } from 'mobx-react';
+import { pricesStore } from '../store/PricesStore';
+import SearchSuggestions from './SearchSuggestions';
+import PriceType from '../types/PriceType';
 
 const SearchBarWithAutoSuggest = observer(() => {
-
     const [searchTerm, setSearchTerm] = useState('');
     const [suggestions, setSuggestions] = useState([]);
 
-    const getUpdatedSuggestions = async (term: string) => term.length > 2 ? getAutocompleteSuggestions(term) : [];
+    const getUpdatedSuggestions = async (term: string) =>
+        term.length > 2 ? getAutocompleteSuggestions(term) : [];
 
     const handleChange = (updatedSearchTerm: string): void => {
         setSearchTerm(updatedSearchTerm);
         getUpdatedSuggestions(updatedSearchTerm).then(setSuggestions);
-    }
+    };
 
     const handleSubmit = (toSearchFor: string): void => {
         setSearchTerm('');
         setSuggestions([]);
         pricesStore.clearResults();
-        pricesStore.activeSellers.forEach(seller => {
-            getPrices(seller.name, toSearchFor)
-                .then((prices: PriceType[]) => pricesStore.addPrices(prices));
+        pricesStore.activeSellers.forEach((seller) => {
+            getPrices(seller.name, toSearchFor).then((prices: PriceType[]) =>
+                pricesStore.addPrices(prices)
+            );
         });
-    }
+    };
 
     return (
         <View style={styles.outer_container}>
             <View style={styles.inner_container}>
-                <TextInput style={styles.input}
-                    value={searchTerm} placeholder={"Type to search"}
-                    onChangeText={handleChange} 
+                <TextInput
+                    style={styles.input}
+                    value={searchTerm}
+                    placeholder={'Type to search'}
+                    onChangeText={handleChange}
                     onSubmitEditing={() => handleSubmit(searchTerm)}
-                    />
-                <SearchSuggestions suggestions={suggestions} onClick={handleSubmit} maxSuggestions={5} />
-                {/* <Button title={"Search"} onPress={() => handleSubmit()}/> */}   
+                />
+                <SearchSuggestions
+                    suggestions={suggestions}
+                    onClick={handleSubmit}
+                    maxSuggestions={5}
+                />
+                {/* <Button title={"Search"} onPress={() => handleSubmit()}/> */}
             </View>
-
-        </View>)
-
+        </View>
+    );
 });
 
 const styles = StyleSheet.create({
@@ -55,7 +60,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         // backgroundColor: '#fff',
         width: '66%',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     inner_container: {
         height: 50,
@@ -63,12 +68,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         flexDirection: 'row',
         backgroundColor: '#fff',
-        minWidth: '100%',
+        minWidth: '100%'
     },
     input: {
         width: '100%',
-        height: '100%',
-    },
+        height: '100%'
+    }
 });
 
 export default SearchBarWithAutoSuggest;

@@ -1,34 +1,32 @@
-import React from "react";
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
+import React from 'react';
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 
 interface Props {
-    suggestions: string[],
-    onClick: Function,
-    maxSuggestions: number,
+    suggestions: string[];
+    onClick: Function;
+    maxSuggestions: number;
 }
 
 const SearchSuggestions = ({ suggestions, onClick, maxSuggestions }: Props) => {
-
-    return(
-        suggestions.length === 0
-        ? null
-        : <View style={styles.suggestions_container}>
-            {suggestions.slice(0, maxSuggestions).map((suggestion: string, i: number) => 
-                <TouchableWithoutFeedback style={styles.wrapper} key={i} onPress={() => onClick(suggestion)} >
-                    <View style={styles.suggestion}>
-                        <Text style={styles.text}>
-                            {suggestion}
-                        </Text>
-                        <View style={styles.placeHolder}>
-
+    return suggestions.length === 0 ? null : (
+        <View style={styles.suggestions_container}>
+            {suggestions
+                .slice(0, maxSuggestions)
+                .map((suggestion: string, i: number) => (
+                    <TouchableWithoutFeedback
+                        style={styles.wrapper}
+                        key={i}
+                        onPress={() => onClick(suggestion)}
+                    >
+                        <View style={styles.suggestion}>
+                            <Text style={styles.text}>{suggestion}</Text>
+                            <View style={styles.placeHolder}></View>
                         </View>
-                    </View>
-                </TouchableWithoutFeedback>
-            )}
+                    </TouchableWithoutFeedback>
+                ))}
         </View>
-    )
-}
-
+    );
+};
 
 const styles = StyleSheet.create({
     suggestions_container: {
@@ -38,23 +36,21 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: '#fff',
         minWidth: '100%',
-        flex: 1,
+        flex: 1
     },
     wrapper: {
-        minWidth: '100%',
+        minWidth: '100%'
     },
     suggestion: {
         marginVertical: 8,
         minWidth: '100%',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-between'
     },
     text: {
-        minWidth: '100%',
+        minWidth: '100%'
     },
-    placeHolder: {
-
-    }
+    placeHolder: {}
 });
 
 export default SearchSuggestions;
