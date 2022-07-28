@@ -1,4 +1,6 @@
 import { action, computed, makeAutoObservable, makeObservable } from 'mobx';
+import { makePersistable } from 'mobx-persist-store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getStoredDataOrDefault, storageKeys, storeData, storeDataString } from '../gateway/storage';
 import PriceType from "../types/PriceType";
 import SellerType from '../types/SellerType';
@@ -92,7 +94,7 @@ const maybeFilterFoils = (filterBy: string) => {
     }
 }
 
-const samePrice = (a: PriceType, b: PriceType): boolean => a.seller === b.seller && a.title === b.title && a.subtitle === b.subtitle;
+const samePrice = (a: PriceType, b: PriceType): boolean => a.seller === b.seller && a.title === b.title && a.subtitle === b.subtitle && a.expansion === b.expansion;
 
 
 class PricesStore {
@@ -104,20 +106,13 @@ class PricesStore {
     filterFoilsBy: string = filterFoilsOptions.all;
 
     constructor() {
-        // makeObservable(this, {
-        //     addPrices: action,
-        //     sellers: observable,
-        //     sortedPrices: computed,
-        //     numberOfPrices: computed,
-        // });
         makeAutoObservable(this);
-        this.loadStoredValues();
-    }
 
-    loadStoredValues = (): void => {
-        // getStoredDataOrDefault(storageKeys.sortPriceBy, sortPriceOptions.asc).then(s => this.setSortPriceBy(s));
-        // getStoredDataOrDefault(storageKeys.filterFoils, filterFoilsOptions.all).then(s => this.setFilterFoilsBy(s));
-        // getStoredDataOrDefault(storageKeys.bookmarkedPrices, []).then(b => this.addBookmarks(b));
+        makePersistable(this, {
+            name: 'ctmPricesStore',
+            properties: ['sellers', 'bookmarkedPrices', 'sortPriceBy', 'filterFoilsBy'],
+            storage: AsyncStorage,
+        }).then(() => console.log('hydrated store'));
     }
 
     get activeSellers(): SellerType[] {
@@ -146,13 +141,11 @@ class PricesStore {
     addBookmarks = (bookmarksToAdd: PriceType[]): void => {
         const updatedBookmarks = [...this.bookmarkedPrices, ...bookmarksToAdd];
         this.bookmarkedPrices = updatedBookmarks;
-        storeData(storageKeys.bookmarkedPrices, updatedBookmarks);
     }
 
     deleteBookmark = (bookmarkToDelete: PriceType): void => {
         const updatedBookmarks = this.bookmarkedPrices.filter((p) => !samePrice(p, bookmarkToDelete));
         this.bookmarkedPrices = updatedBookmarks;
-        storeData(storageKeys.bookmarkedPrices, updatedBookmarks);
     }
 
     isBookmarked = (maybeBookmarked: PriceType): boolean => {
@@ -161,12 +154,10 @@ class PricesStore {
 
     setSortPriceBy = (sortBy: string): void => {
         this.sortPriceBy = sortBy;
-        storeDataString(storageKeys.sortPriceBy, sortBy);
     }
 
     setFilterFoilsBy = (filterBy: string): void => {
         this.filterFoilsBy = filterBy;
-        storeDataString(storageKeys.filterFoils, filterBy);
     }
 
     toggleSellerEnabled = (sellerName: string): void => {
