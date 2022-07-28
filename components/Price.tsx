@@ -58,9 +58,7 @@ const Price = observer(({ result }: PriceProps) => {
                                 />
                             )}
                         </View>
-                        <Text style={styles.price}>
-                            {priceString}
-                        </Text>
+                        <Text style={styles.price}>{priceString}</Text>
                     </View>
 
                     <View style={styles.widgets_container}>
