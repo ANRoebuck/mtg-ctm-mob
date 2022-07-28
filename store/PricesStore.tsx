@@ -1,7 +1,6 @@
 import { action, computed, makeAutoObservable, makeObservable } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getStoredDataOrDefault, storageKeys, storeData, storeDataString } from '../gateway/storage';
 import PriceType from "../types/PriceType";
 import SellerType from '../types/SellerType';
 import { configureSellers, filterFoilsOptions, sortPriceOptions } from '../utils/utils';
@@ -76,6 +75,8 @@ const dummyPrices: PriceType[] = [
 ]
 
 
+const sortBySeller = (a: PriceType, b: PriceType) => a.seller.localeCompare(b.seller);
+
 const sortPriceAscending = (a: PriceType, b: PriceType): number => a.price_relativeUnits - b.price_relativeUnits;
 const sortPriceDescending = (a: PriceType, b: PriceType): number => b.price_relativeUnits - a.price_relativeUnits;
 const sortByPrice = (sortBy: string) => sortBy === sortPriceOptions.asc ? sortPriceAscending : sortPriceDescending;
@@ -124,6 +125,12 @@ class PricesStore {
             .filter(({ seller }) => this.isActiveSeller(seller))
             .filter(maybeFilterFoils(this.filterFoilsBy))
             .sort(sortByPrice(this.sortPriceBy));
+    }
+
+    get sortedBookmarks(): PriceType[] {
+        return this.bookmarkedPrices.slice()
+            .sort(sortByPrice(this.sortPriceBy))
+            .sort(sortBySeller);
     }
 
     isActiveSeller = (seller: string) => {

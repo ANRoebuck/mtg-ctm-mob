@@ -1,8 +1,7 @@
-import { Button, Image, Linking, StyleSheet, Text, TextInput, TouchableHighlight, View } from "react-native";
+import { Image, Linking, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import PriceType from "../types/PriceType";
 import foilStar from '../assets/foil-star.png';
-import {getLogoForSeller, sellers} from '../utils/utils';
-import { storeData } from "../gateway/storage";
+import { getLogoForSeller } from '../utils/utils';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { pricesStore } from "../store/PricesStore";
 import { observer } from "mobx-react";
@@ -42,14 +41,20 @@ const Price = observer(({ result }: PriceProps) => {
                     </View>
 
                     <View style={styles.widgets_container}>
-                        <TouchableHighlight style={styles.widget}onPress={() =>
-                            isBookmarked ? pricesStore.deleteBookmark(result) : pricesStore.addBookmarks([result])}>
-                            <Icon name={isBookmarked ? 'trash-o' : 'save'} size={25} color={'#000000'}/>
-                        </TouchableHighlight>
+
+                        <TouchableWithoutFeedback onPress={() => isBookmarked ? pricesStore.deleteBookmark(result) : pricesStore.addBookmarks([result])}>
+                            <View style={styles.widget}>
+                                <Icon name={isBookmarked ? 'trash-o' : 'save'} size={25} color={'#000000'}/>
+                            </View>
+                            
+                        </TouchableWithoutFeedback>
                 
-                        <TouchableHighlight style={styles.widget} onPress={() => Linking.openURL(productRef)}>
-                            <Icon name={'shopping-cart'} size={25} color={'#000000'}/>
-                        </TouchableHighlight>
+                        <TouchableWithoutFeedback onPress={() => Linking.openURL(productRef)}>
+                            <View style={styles.widget}>
+                                <Icon name={'shopping-cart'} size={25} color={'#000000'}/>    
+                            </View>
+                        </TouchableWithoutFeedback>
+
                     </View>
 
                 </View>

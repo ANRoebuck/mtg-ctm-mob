@@ -44,6 +44,8 @@ const FAQs: iFAQ[] = [
     },
 ]
 
+const notice = '© 2022 Alex Roebuck'
+
 const FAQ = () => {
 
     return (
@@ -59,6 +61,8 @@ const FAQ = () => {
                     </Text>
                 </View>
             )}
+
+            <Text style={styles.notice}>{notice}</Text>
 
         </ScrollView>
     )
@@ -85,6 +89,11 @@ const styles = StyleSheet.create({
     card_text: {
         textAlign: 'left',
     },
+    notice: {
+        textAlign: 'center',
+        color: 'white',
+        margin: 15,
+    }
 });
 
 export default FAQ;

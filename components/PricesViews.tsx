@@ -4,8 +4,15 @@ import { pricesStore } from "../store/PricesStore";
 import Price from "./Price";
 import PriceType from "../types/PriceType";
 
+interface PriceViewProps {
+    prices: PriceType[],
+}
 
-const Prices = observer(() => {
+export const ResultsView = observer(() => <PricesView prices={pricesStore.sortedPrices} />);
+
+export const BookmarksView = observer(() => <PricesView prices={pricesStore.sortedBookmarks} />);
+
+const PricesView = ({ prices }: PriceViewProps) => {
     return (
         <ScrollView
             style={styles.scroll_container}
@@ -13,7 +20,7 @@ const Prices = observer(() => {
             keyboardShouldPersistTaps="handled"
         >
             <View style={styles.prices_container}>
-                {pricesStore.sortedPrices.map((result: PriceType, i: number) => {
+                {prices.map((result: PriceType, i: number) => {
                     return (
                         <Price result={result} key={i}/>
                     );
@@ -21,7 +28,7 @@ const Prices = observer(() => {
             </View>
         </ScrollView>
     );
-});
+};
 
 const styles = StyleSheet.create({
     scroll_container: {
@@ -33,5 +40,3 @@ const styles = StyleSheet.create({
         width: '100%',
     },
 });
-
-export default Prices;

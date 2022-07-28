@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 const ctm = 'https://mtg-ctm-be.herokuapp.com/api';
 const scryfall = 'https://api.scryfall.com';

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 
 interface Props {
     suggestions: string[],
@@ -14,11 +14,17 @@ const SearchSuggestions = ({ suggestions, onClick, maxSuggestions }: Props) => {
         ? null
         : <View style={styles.suggestions_container}>
             {suggestions.slice(0, maxSuggestions).map((suggestion: string, i: number) => 
-                <TouchableHighlight style={styles.suggestion} key={i} onPress={() => onClick(suggestion)} >
-                    <Text >
-                        {suggestion}
-                    </Text>
-                </TouchableHighlight >)}
+                <TouchableWithoutFeedback style={styles.wrapper} key={i} onPress={() => onClick(suggestion)} >
+                    <View style={styles.suggestion}>
+                        <Text style={styles.text}>
+                            {suggestion}
+                        </Text>
+                        <View style={styles.placeHolder}>
+
+                        </View>
+                    </View>
+                </TouchableWithoutFeedback>
+            )}
         </View>
     )
 }
@@ -32,11 +38,23 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: '#fff',
         minWidth: '100%',
+        flex: 1,
+    },
+    wrapper: {
+        minWidth: '100%',
     },
     suggestion: {
         marginVertical: 8,
         minWidth: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
+    text: {
+        minWidth: '100%',
+    },
+    placeHolder: {
+
+    }
 });
 
 export default SearchSuggestions;

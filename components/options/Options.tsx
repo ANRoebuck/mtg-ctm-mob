@@ -60,12 +60,12 @@ const Options = observer(() => {
     return(
         <ScrollView style={styles.main_container}>
 
-            <Text style={styles.options_header}>Sort and filter</Text>
+            <Text style={styles.options_header}>Display Options</Text>
             <View style={styles.options_container}>
                 {SortAndFilterOptions.map((o, i) =><SortAndFilterOption props={o} key={i}/>)}
             </View>
 
-            <Text style={styles.options_header}>Stores - Press to enable/disable</Text>
+            <Text style={styles.options_header}>Stores - Press to Enable/Disable</Text>
             <View style={styles.options_container} >
                 {pricesStore.sellers.map((s, i) => <SellerOption seller={s} key={i}/>)}
             </View>
@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 10,
         padding: 10,
+        minWidth: 135,
     },
     sf_title_text: {
         marginBottom: 5,
