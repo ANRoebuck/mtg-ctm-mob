@@ -11,7 +11,7 @@ import magicMadhouseLogo from '../assets/magicMadhouse-150x60.png';
 import manaleakLogo from '../assets/manaLeak-150x60.png';
 // import mkmLogo from '../assets/mkm-150x60.png';
 import mountBattenLogo from '../assets/mountBatten-150x60.png';
-import nerdShakLogo from '../assets/nerdShak-150x60.jpg';
+// import nerdShakLogo from '../assets/nerdShak-150x60.jpg';
 import pgLeedsLogo from '../assets/patriotGamesLeeds-150x60.png';
 import starCityGamesLogo from '../assets/starCityGames-150x60.png';
 import trollLogo from '../assets/trollTrader-150x60.png';
@@ -37,12 +37,6 @@ export const sellers = {
         logo: bigOrbitLogo,
         currency: currency.GBP
     },
-    // chaos: {
-    //     name: 'Chaos Cards',
-    //     logo: chaosLogo,
-    //     currency: currency.GBP,
-    // },
-
     harlequins: {
         name: 'Harlequins',
         logo: harlequinsLogo,
@@ -78,19 +72,9 @@ export const sellers = {
         logo: manaleakLogo,
         currency: currency.GBP
     },
-    // mkm: {
-    //     name: 'Magic Card Market',
-    //     logo: mkmLogo,
-    //     currency: currency.EUR,
-    // },
     mountBatten: {
         name: 'Mountbatten Collectables',
         logo: mountBattenLogo,
-        currency: currency.GBP
-    },
-    nerdShak: {
-        name: 'Nerd Shak',
-        logo: nerdShakLogo,
         currency: currency.GBP
     },
     pgLeeds: {
@@ -103,11 +87,6 @@ export const sellers = {
         logo: trollLogo,
         currency: currency.JPY
     },
-    // unionCounty: {
-    //     name: 'Union County Games',
-    //     logo: unionCountyLogo,
-    //     currency: currency.GBP,
-    // },
 
     // Non-UK
 
