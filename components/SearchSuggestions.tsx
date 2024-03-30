@@ -36,10 +36,12 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: '#fff',
         minWidth: '100%',
-        flex: 1
+        width: '100%',
+        flex: 1,
     },
     wrapper: {
-        minWidth: '100%'
+        minWidth: '100%',
+        width: '100%',
     },
     suggestion: {
         marginVertical: 8,
@@ -48,7 +50,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     text: {
-        minWidth: '100%'
+        minWidth: '100%',
     },
     placeHolder: {}
 });

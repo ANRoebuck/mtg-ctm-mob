@@ -71,7 +71,7 @@ const Price = observer(({ result }: PriceProps) => {
                         >
                             <View style={styles.widget}>
                                 <Icon
-                                    name={isBookmarked ? 'trash-o' : 'save'}
+                                    name={isBookmarked ? 'bookmark' : 'bookmark-o'}
                                     size={25}
                                     color={'#000000'}
                                 />
@@ -113,17 +113,13 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         fontSize: 16
     },
-
     info_container: {
         flexDirection: 'row',
         height: 160
     },
     img: {
-        // height: 'auto',
         width: '40%',
-        // resizeMethod: 'scale',
         resizeMode: 'contain'
-        // borderWidth: 1,
     },
     info: {
         width: '60%',
@@ -177,7 +173,7 @@ const styles = StyleSheet.create({
     widget: {
         width: '20%',
         textAlign: 'center',
-        marginHorizontal: 5
+        marginHorizontal: 5,
     }
 });
 

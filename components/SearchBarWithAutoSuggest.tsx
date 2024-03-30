@@ -1,32 +1,25 @@
 import { StyleSheet, TextInput, View } from 'react-native';
 import { useState } from 'react';
-import { getAutocompleteSuggestions, getPrices } from '../gateway/http';
+import { getAutocompleteSuggestions } from '../gateway/http';
 import { observer } from 'mobx-react';
 import { pricesStore } from '../store/PricesStore';
 import SearchSuggestions from './SearchSuggestions';
-import PriceType from '../types/PriceType';
 
 const SearchBarWithAutoSuggest = observer(() => {
-    const [searchTerm, setSearchTerm] = useState('');
+    const [value, setValue] = useState('');
     const [suggestions, setSuggestions] = useState([]);
 
-    const getUpdatedSuggestions = async (term: string) =>
-        term.length > 2 ? getAutocompleteSuggestions(term) : [];
-
-    const handleChange = (updatedSearchTerm: string): void => {
-        setSearchTerm(updatedSearchTerm);
-        getUpdatedSuggestions(updatedSearchTerm).then(setSuggestions);
+    const handleChange = (updatedValue: string): void => {
+        setValue(updatedValue);
+        getUpdatedSuggestions(updatedValue).then(setSuggestions);
     };
 
-    const handleSubmit = (toSearchFor: string): void => {
-        setSearchTerm('');
+    const getUpdatedSuggestions = async (term: string) => term.length > 2 ? getAutocompleteSuggestions(term) : [];
+
+    const handleSubmit = (searchTerm: string): void => {
+        setValue('');
         setSuggestions([]);
-        pricesStore.clearResults();
-        pricesStore.activeSellers.forEach((seller) => {
-            getPrices(seller.name, toSearchFor).then((prices: PriceType[]) =>
-                pricesStore.addPrices(prices)
-            );
-        });
+        pricesStore.search(searchTerm);
     };
 
     return (
@@ -34,10 +27,10 @@ const SearchBarWithAutoSuggest = observer(() => {
             <View style={styles.inner_container}>
                 <TextInput
                     style={styles.input}
-                    value={searchTerm}
+                    value={value}
                     placeholder={'Type to search'}
                     onChangeText={handleChange}
-                    onSubmitEditing={() => handleSubmit(searchTerm)}
+                    onSubmitEditing={() => handleSubmit(value)}
                 />
                 <SearchSuggestions
                     suggestions={suggestions}
@@ -68,9 +61,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         flexDirection: 'row',
         backgroundColor: '#fff',
-        minWidth: '100%'
+        minWidth: '100%',
     },
     input: {
+        padding: 10,
         width: '100%',
         height: '100%'
     }

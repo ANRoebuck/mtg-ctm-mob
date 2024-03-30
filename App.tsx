@@ -53,8 +53,8 @@ const styles = StyleSheet.create({
     app: {
         flex: 1,
         backgroundColor: '#3a3f5a',
-        paddingTop: 15,
-        paddingBottom: 15,
+        paddingTop: 10,
+        paddingBottom: 10,
         alignItems: 'center',
         maxHeight: '100%'
     },

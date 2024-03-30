@@ -8,6 +8,7 @@ import {
     filterFoilsOptions,
     sortPriceOptions
 } from '../utils/utils';
+import { getPrices } from '../gateway/http';
 
 const dummyPrices: PriceType[] = [
     {
@@ -112,8 +113,10 @@ const samePrice = (a: PriceType, b: PriceType): boolean =>
     a.expansion === b.expansion;
 
 class PricesStore {
+
     sellers: SellerType[] = configureSellers();
-    discoveredPrices: PriceType[] = dummyPrices;
+    // discoveredPrices: PriceType[] = dummyPrices;
+    discoveredPrices: PriceType[] = [];
     bookmarkedPrices: PriceType[] = [];
     sortPriceBy: string = sortPriceOptions.asc;
     filterFoilsBy: string = filterFoilsOptions.all;
@@ -155,6 +158,11 @@ class PricesStore {
     isActiveSeller = (seller: string) => {
         return this.sellers.find(({ name }) => name === seller)?.enabled;
     };
+
+    search = (searchTerm: string) : void => {
+        this.clearResults();
+        this.activeSellers.forEach(({ name }) => getPrices(name, searchTerm).then(this.addPrices));
+    }
 
     clearResults = (): void => {
         this.discoveredPrices = [];

@@ -46,7 +46,12 @@ const NavBar = ({ tabs, selected, setSelected }: NavBarProps) => {
 
 const styles = StyleSheet.create({
     nav_bar: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignContent: 'center',
+        backgroundColor: 'darkblue',
+        minWidth: '100%',
+        padding: 10,
+        justifyContent: 'space-around'
     },
     nav_button: {
         padding: 10,
