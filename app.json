@@ -22,7 +22,7 @@
     },
     "android": {
       "package": "com.CompareTheMagic",
-      "versionCode": 1,
+      "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/ctmlogo.png",
         "backgroundColor": "#FFFFFF"

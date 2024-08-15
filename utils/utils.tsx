@@ -1,21 +1,22 @@
 import axionLogo from '../assets/axion-150x60.png';
-import bigOrbitLogo from '../assets/bigOrbitCards-150x60.png';
-// import chaosLogo from '../assets/chaosCards-150x60.png';
+import boardsAndSwordsLogo from '../assets/boardsAndSwords 5to2.png';
+import diceSaloonLogo from '../assets/diceSaloonSingles 500x200.png';
+import gameHQLogo from '../assets/gameHQ 250x100.png';
+import gatheringPoingLogo from '../assets/gatheringPointGames 450x180.png';
 import harlequinsLogo from '../assets/harlequins-150x60.png';
-import hareruyaLogo from '../assets/hareryua-150x60.png';
-import lazyDragonLogo from '../assets/lazyDragonGaming-150x60.jpg';
+import highlanderGamesLogo from '../assets/highlanderGames 5to2 b.png';
 import londonMagicLogo from '../assets/londonMagicTraders-150x60.png';
 import lvlUpLogo from '../assets/lvlUp-150x60.png';
 import magicCardTraderLogo from '../assets/magicCardTrader-150x60.png';
 import magicMadhouseLogo from '../assets/magicMadhouse-150x60.png';
+import manaGamingLogo from '../assets/manaGaming 150x60.png';
 import manaleakLogo from '../assets/manaLeak-150x60.png';
-// import mkmLogo from '../assets/mkm-150x60.png';
-import mountBattenLogo from '../assets/mountBatten-150x60.png';
-// import nerdShakLogo from '../assets/nerdShak-150x60.jpg';
 import pgLeedsLogo from '../assets/patriotGamesLeeds-150x60.png';
+import skywardFireLogo from '../assets/skywardFire 580x232.png';
 import starCityGamesLogo from '../assets/starCityGames-150x60.png';
+import totalCardsLogo from '../assets/totalCards 500x200.png';
 import trollLogo from '../assets/trollTrader-150x60.png';
-// import unionCountyLogo from '../assets/unionCountyGames-150x60.png';
+
 import { ImageSourcePropType } from 'react-native';
 import SellerType from '../types/SellerType';
 
@@ -26,80 +27,100 @@ export const currency = {
     USD: { representation: '$', decimalPlaces: 2, conversionFactor: 1 }
 };
 
-export const sellers = {
+const sellers = {
     axion: {
         name: 'Axion Now',
         logo: axionLogo,
-        currency: currency.GBP
-    },
-    bigOrbit: {
-        name: 'Big Orbit Cards',
-        logo: bigOrbitLogo,
-        currency: currency.GBP
-    },
-    harlequins: {
+        currency: currency.GBP,
+      },
+      boardsAndSwords: {
+        name: 'Boards & Swords',
+        logo: boardsAndSwordsLogo,
+        currency: currency.GBP,
+      },
+      diceSaloon: {
+        name: 'Dice Saloon',
+        logo: diceSaloonLogo,
+        currency: currency.GBP,
+      },
+      gameHQ: {
+        name: 'Game HQ',
+        logo: gameHQLogo,
+        currency: currency.GBP,
+      },
+      gatheringPoint: {
+        name: 'Gathering Point Games',
+        logo: gatheringPoingLogo,
+        currency: currency.GBP,
+      },
+      harlequins: {
         name: 'Harlequins',
         logo: harlequinsLogo,
-        currency: currency.GBP
-    },
-    lazyDragon: {
-        name: 'Lazy Dragon Gaming',
-        logo: lazyDragonLogo,
-        currency: currency.GBP
-    },
-    lvlUp: {
-        name: 'Lvl Up Gaming',
-        logo: lvlUpLogo,
-        currency: currency.GBP
-    },
-    londonMagic: {
+        currency: currency.GBP,
+      },
+      highlanderGames: {
+        name: 'Highlander Games',
+        logo: highlanderGamesLogo,
+        currency: currency.GBP,
+      },
+      londonMagic: {
         name: 'London Magic Traders',
         logo: londonMagicLogo,
-        currency: currency.GBP
-    },
-    magicCardTrader: {
+        currency: currency.GBP,
+      },
+      lvlUp: {
+        name: 'Lvl Up Gaming',
+        logo: lvlUpLogo,
+        currency: currency.GBP,
+      },
+      magicCardTrader: {
         name: 'Magic Card Trader',
         logo: magicCardTraderLogo,
-        currency: currency.GBP
-    },
-    magicMadhouse: {
+        currency: currency.GBP,
+      },
+      magicMadhouse: {
         name: 'Magic Madhouse',
         logo: magicMadhouseLogo,
-        currency: currency.GBP
-    },
-    manaLeak: {
+        currency: currency.GBP,
+      },
+      manaGaming: {
+        name: 'Mana Gaming',
+        logo: manaGamingLogo,
+        currency: currency.GBP,
+      },
+      manaLeak: {
         name: 'Manaleak',
         logo: manaleakLogo,
-        currency: currency.GBP
-    },
-    mountBatten: {
-        name: 'Mountbatten Collectables',
-        logo: mountBattenLogo,
-        currency: currency.GBP
-    },
-    pgLeeds: {
+        currency: currency.GBP,
+      },
+      pgLeeds: {
         name: 'Patriot Games Leeds',
         logo: pgLeedsLogo,
-        currency: currency.GBP
-    },
-    trollTrader: {
+        currency: currency.GBP,
+      },
+      skywardFire: {
+        name: 'Skyward Fire',
+        logo: skywardFireLogo,
+        currency: currency.GBP,
+      },
+      totalCards: {
+        name: 'Total Cards',
+        logo: totalCardsLogo,
+        currency: currency.GBP,
+      },
+      trollTrader: {
         name: 'Troll Trader',
         logo: trollLogo,
-        currency: currency.JPY
-    },
-
-    // Non-UK
-
-    hareruya: {
-        name: 'Hareruya',
-        logo: hareruyaLogo,
-        currency: currency.GBP
-    },
-    starCityGames: {
+        currency: currency.GBP,
+      },
+    
+      // Non-UK
+    
+      starCityGames: {
         name: 'Star City Games',
         logo: starCityGamesLogo,
-        currency: currency.USD
-    }
+        currency: currency.USD,
+      },
 };
 
 export const configureSellers = (): SellerType[] => {
