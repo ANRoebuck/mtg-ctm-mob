@@ -1,10 +1,10 @@
-import { StyleSheet, View } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet, View } from 'react-native';
 import SearchBarWithAutoSuggest from './components/SearchBarWithAutoSuggest';
 import { BookmarksView, ResultsView } from './components/PricesViews';
 import React, { useState } from 'react';
 import NavBar from './components/NavBar';
 import FAQ from './components/FAQ';
-import Options from './components/options/Options';
+import Options from './components/Options';
 
 const App = () => {
     const pages = {
@@ -32,7 +32,8 @@ const App = () => {
     };
 
     return (
-        <View style={styles.app}>
+        <SafeAreaView style={styles.app}>
+            <StatusBar backgroundColor={'#3a3f5a'} barStyle={'light-content'} />
             <View style={styles.nav_container}>
                 <NavBar
                     tabs={pages}
@@ -44,8 +45,8 @@ const App = () => {
             {getPageToDisplay()}
 
             {/* Seach Bar goes gelow to ensure suggestions appear on top of other elements  */}
-            <SearchBarWithAutoSuggest />
-        </View>
+            <SearchBarWithAutoSuggest snapToResults={() => setSelected(pages.results)}/>
+        </SafeAreaView>
     );
 };
 
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
         maxHeight: '100%'
     },
     nav_container: {
-        marginTop: 100,
+        marginTop: 65,
         marginBottom: 10
     }
 });

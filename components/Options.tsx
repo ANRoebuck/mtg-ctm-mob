@@ -8,10 +8,10 @@ import {
     View
 } from 'react-native';
 import { observer } from 'mobx-react';
-import { pricesStore } from '../../store/PricesStore';
-import SellerType from '../../types/SellerType';
+import { pricesStore } from '../store/PricesStore';
+import SellerType from '../types/SellerType';
 import RadioButton from './RadioButton';
-import { filterFoilsOptions, sortPriceOptions } from '../../utils/utils';
+import { filterFoilsOptions, sortPriceOptions } from '../utils/utils';
 
 interface SortAndFilterProps {
     props: {

@@ -5,7 +5,11 @@ import { observer } from 'mobx-react';
 import { pricesStore } from '../store/PricesStore';
 import SearchSuggestions from './SearchSuggestions';
 
-const SearchBarWithAutoSuggest = observer(() => {
+interface SearchBarWithAutoSuggestProps {
+    snapToResults: () => void;
+}
+
+const SearchBarWithAutoSuggest = observer(({ snapToResults }: SearchBarWithAutoSuggestProps) => {
     const [value, setValue] = useState('');
     const [suggestions, setSuggestions] = useState([]);
 
@@ -19,7 +23,8 @@ const SearchBarWithAutoSuggest = observer(() => {
     const handleSubmit = (searchTerm: string): void => {
         setValue('');
         setSuggestions([]);
-        pricesStore.search(searchTerm);
+        pricesStore.searchForPrices(searchTerm);
+        snapToResults();
     };
 
     return (
@@ -37,7 +42,6 @@ const SearchBarWithAutoSuggest = observer(() => {
                     onClick={handleSubmit}
                     maxSuggestions={5}
                 />
-                {/* <Button title={"Search"} onPress={() => handleSubmit()}/> */}
             </View>
         </View>
     );
@@ -48,7 +52,7 @@ const styles = StyleSheet.create({
         margin: 12,
         position: 'absolute',
         top: 0,
-        marginVertical: 20,
+        marginVertical: 0,
         paddingVertical: 10,
         flexDirection: 'row',
         // backgroundColor: '#fff',

@@ -102,7 +102,7 @@ const maybeFilterFoils = (filterBy: string) => {
 
 class PricesStore {
 
-    sellers: SellerType[] = configureSellers();
+    sellers: SellerType[] = [];
     // discoveredPrices: PriceType[] = dummyPrices;
     discoveredPrices: PriceType[] = [];
     bookmarkedPrices: PriceType[] = [];
@@ -121,13 +121,27 @@ class PricesStore {
             ],
             storage: AsyncStorage
         }).then(() => {
-            console.log('hydrated store');
+            this.updateSellerInfo();
+            console.log('Hydrated store');
         });
     }
 
-    get activeSellers(): SellerType[] {
-        return this.sellers.filter((s) => s.enabled);
+
+    searchForPrices = (searchTerm: string): void => {
+        this.clearResults();
+        this.activeSellers.forEach(({ name }) => {
+            this.setSellerLoading(name, true);
+
+            getPrices(name, searchTerm).then((prices) => {
+                this.setSellerLoading(name, false);
+                this.addPrices(prices)
+            });
+        });
     }
+
+    get activeSellers(): SellerType[] { return this.sellers.filter((s) => s.enabled); }
+
+    get sellersLoadingCount() { return this.sellers.filter(({ loading }) => loading).length; }
 
     get sortedPrices(): PriceType[] {
         return this.discoveredPrices
@@ -147,11 +161,6 @@ class PricesStore {
     isActiveSeller = (seller: string) => {
         return this.sellers.find(({ name }) => name === seller)?.enabled;
     };
-
-    search = (searchTerm: string) : void => {
-        this.clearResults();
-        this.activeSellers.forEach(({ name }) => getPrices(name, searchTerm).then(this.addPrices));
-    }
 
     clearResults = (): void => {
         this.discoveredPrices = [];
@@ -195,6 +204,71 @@ class PricesStore {
             };
         });
     };
+
+    setSellerLoading = (targetSellerName: string, setLoading: boolean) => {
+        this.sellers = this.sellers.map((s) => {
+            let { name, loading } = s;
+            if (name === targetSellerName) loading = setLoading;
+            return {
+                ...s,
+                loading,
+            };
+        });
+    };
+
+    findSellerFromName = (targetSellerName: string) => this.sellers.find(({ name }) => name === targetSellerName);
+
+    updateSellerInfo = () => {
+        console.log('Loading seller info');
+
+        let updatedSellerInfo: SellerType[] = [];
+        const newSellerInfo = configureSellers();
+
+        const findNewInfo = (targetSellerName: string): SellerType => {
+            const foundInfo = newSellerInfo.find(({ name }) => name === targetSellerName);
+            if (foundInfo === undefined) {
+                throw new TypeError('The seller info should always be present');
+            }
+            return foundInfo;
+        };
+
+        // remove deleted sellers
+        // remove bookmarks for deleted sellers
+        updatedSellerInfo = this.sellers.filter(({ name }) => {
+            // check if old seller still exists in new seller info
+            const updatedSeller = findNewInfo(name);
+
+            // keep seller if still exists in new info
+            if (updatedSeller) return true;
+
+            // else discard seller AND delete all bookmarks for it
+            this.bookmarkedPrices = this.bookmarkedPrices.filter(({ seller }) => seller !== name);
+            return false;
+        });
+
+        // update existing sellers
+        updatedSellerInfo = updatedSellerInfo.map(s => {
+            // take logo from new seller object and overwrite
+            const { logo } = findNewInfo(s.name);
+            return {
+                ...s,
+                logo,
+            };
+        });
+
+        // add new sellers
+        newSellerInfo.forEach(s => {
+            if (!this.findSellerFromName(s.name)) {
+                updatedSellerInfo = updatedSellerInfo.concat(s);
+            }
+        });
+
+        // sort selers alphabetically
+        updatedSellerInfo.sort((a, b) => a.name.localeCompare(b.name));
+
+        // set updated sellers
+        this.sellers = updatedSellerInfo;
+    }
 }
 
 export const pricesStore = new PricesStore();

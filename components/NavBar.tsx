@@ -23,7 +23,7 @@ const NavButton = ({ value, selected, setSelected }: ButtonProps) => {
                     isSelected ? styles.nav_button_selected : styles.nav_button
                 }
             >
-                <Text>{value}</Text>
+                <Text style={styles.nav_text}>{value}</Text>
             </View>
         </TouchableWithoutFeedback>
     );
@@ -55,15 +55,16 @@ const styles = StyleSheet.create({
     },
     nav_button: {
         padding: 10,
-        borderRadius: 5,
-        backgroundColor: '#fff',
-        marginHorizontal: 5
+        marginHorizontal: 5,
     },
     nav_button_selected: {
         padding: 10,
-        borderRadius: 5,
-        backgroundColor: 'lightgray',
-        marginHorizontal: 5
+        marginHorizontal: 5,
+        borderBottomColor: 'red',
+        borderWidth: 2,
+    },
+    nav_text: {
+        color: 'white',
     }
 });
 

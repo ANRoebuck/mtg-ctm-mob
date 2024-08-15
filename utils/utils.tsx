@@ -125,7 +125,7 @@ const sellers = {
 
 export const configureSellers = (): SellerType[] => {
     return Object.values(sellers).map(
-        (seller): SellerType => ({ ...seller, enabled: true, favourite: false })
+        (seller): SellerType => ({ ...seller, enabled: true, favourite: false, loading: false, })
     );
 };
 

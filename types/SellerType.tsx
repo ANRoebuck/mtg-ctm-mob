@@ -6,6 +6,7 @@ type SellerType = {
     currency: {};
     enabled: boolean;
     favourite: boolean;
+    loading: boolean;
 };
 
 export default SellerType;
