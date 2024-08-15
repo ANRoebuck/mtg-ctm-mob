@@ -19,12 +19,10 @@ const FAQs: IFAQ[] = [
             'CtM will endeavour to fix any issues that may arise as quickly as possible. '
     },
     {
-        title: 'Where do the prices come from?',
-        body: "At the time of each request, CtM's server makes a live request to each retailer's website and displays up-to-date information."
-    },
-    {
-        title: 'Are you constantly scraping sites?',
-        body: 'No. Each request is dealt with as it is submitted - CtM does not scrape and store data in advance.'
+        title: 'Where do the prices come from? Are you constantly scraping sites?',
+        body: "CtM does not scrape sites and store data en masse. At the time of each search, CtM's server makes a live request to each retailer's website and displays up-to-date information. " +
+            'In order to increase efficiency, CtM may retain results of recent searches for a short time, and serve those in response to identical searches. ' +
+            'This could mean prices are sometimes slightly out of date.',
     },
     {
         title: 'Sponsored?',
@@ -35,11 +33,11 @@ const FAQs: IFAQ[] = [
     {
         title: 'When will [website] be added?',
         body:
-            'CtM is produced as a passion project by a developer working in his spare time. ' +
+            'CtM is produced as a passion project by a single developer working in his spare time. ' +
             "Each retailer's website is built differently, which means they are not all equally easy to add. " +
             "Additionally, basic vetting - searching for a few popular or valuable cards - might show that a particular retailer doesn't have good stock levels. " +
             'For these and other practical reasons, a given site might not get a chance to be added to the app. ' +
-            'However, this will never be because of "playing favourites". CtM does not favour any retailer and is always looking to provide prices from more sources.'
+            'However, this will never be because of "playing favourites." CtM does not favour any retailer and is always looking to provide prices from more sources.'
     },
     {
         title: 'When is your birthday?',
@@ -47,7 +45,7 @@ const FAQs: IFAQ[] = [
     }
 ];
 
-const notice = '© 2022 Alex Roebuck';
+const notice = '© 2024 Alex Roebuck';
 
 const FAQ = () => {
     return (
