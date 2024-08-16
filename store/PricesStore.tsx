@@ -121,8 +121,12 @@ class PricesStore {
             ],
             storage: AsyncStorage
         }).then(() => {
-            this.updateSellerInfo();
-            console.log('Hydrated store');
+            setTimeout(() => {
+                // there appears to be a race condition with AsyncStorage
+                // which prevents updating the info from working correctly without a delay
+                this.updateSellerInfo();
+                console.log('Hydrated store');
+            }, (250));
         });
     }
 
