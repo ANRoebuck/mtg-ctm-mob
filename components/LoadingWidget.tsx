@@ -15,8 +15,9 @@ export const LoadingWidget = observer(() => {
     const loadingIcons = [];
 
     if (isLoading) {
-        for(let i = 0; i < total - loading; i++) { loadedIcons.push(<LoadedIcon />)}
-        for(let i = 0; i < loading; i++) { loadingIcons.push(<LoadingIcon />)}
+        let key = 0;
+        for(let i = 0; i < total - loading; i++) { loadedIcons.push(<LoadedIcon key={key++} />)}
+        for(let i = 0; i < loading; i++) { loadingIcons.push(<LoadingIcon key={key++} />)}
     }
 
     return(
