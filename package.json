@@ -29,7 +29,6 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@types/react": "~18.2.79",
-    "@types/react-native": "~0.66.13",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "eslint": "^8.20.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
