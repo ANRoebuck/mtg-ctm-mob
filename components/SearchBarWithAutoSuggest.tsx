@@ -11,18 +11,24 @@ interface SearchBarWithAutoSuggestProps {
 
 const SearchBarWithAutoSuggest = observer(({ snapToResults }: SearchBarWithAutoSuggestProps) => {
     const [value, setValue] = useState('');
-    const [suggestions, setSuggestions] = useState([]);
+
+    const defaultSuggestions = () => ( { capturedAt: new Date(), values: [] });
+    const [suggestions, setSuggestions] = useState(defaultSuggestions());
 
     const handleChange = (updatedValue: string): void => {
         setValue(updatedValue);
-        getUpdatedSuggestions(updatedValue).then(setSuggestions);
+
+        // this ensures only latest suggestions will be used in a case where async calls resolve out of sequence
+        const capturedAt = new Date();
+        getUpdatedSuggestions(updatedValue)
+            .then(values => setSuggestions(prev => prev.capturedAt < capturedAt ? { capturedAt, values } : prev));
     };
 
     const getUpdatedSuggestions = async (term: string) => term.length > 2 ? getAutocompleteSuggestions(term) : [];
 
     const handleSubmit = (searchTerm: string): void => {
         setValue('');
-        setSuggestions([]);
+        setSuggestions(defaultSuggestions());
         pricesStore.searchForPrices(searchTerm);
         snapToResults();
     };
@@ -38,7 +44,7 @@ const SearchBarWithAutoSuggest = observer(({ snapToResults }: SearchBarWithAutoS
                     onSubmitEditing={() => handleSubmit(value)}
                 />
                 <SearchSuggestions
-                    suggestions={suggestions}
+                    suggestions={suggestions.values}
                     onClick={handleSubmit}
                     maxSuggestions={5}
                 />
