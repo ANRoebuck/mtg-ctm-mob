@@ -1,6 +1,6 @@
 {
-  "name": "mtg-ctm-fe",
-  "version": "1.1.0",
+  "name": "mtg-ctm-mob",
+  "version": "1.1.2",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -12,23 +12,24 @@
     "lint": "tsc --noEmit && eslint --ext .js,.jsx,.ts,.tsx ./"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "1.23.1",
+    "@react-native-async-storage/async-storage": "2.1.2",
     "@types/react-native-vector-icons": "^6.4.11",
     "axios": "^0.27.2",
-    "expo": "^51.0.28",
-    "expo-status-bar": "~1.12.1",
+    "expo": "^53.0.27",
+    "expo-build-properties": "~0.14.8",
+    "expo-status-bar": "~2.2.3",
     "mobx": "^6.3.0",
     "mobx-persist-store": "^1.0.6",
-    "mobx-react": "^7.1.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-native": "0.74.5",
+    "mobx-react": "^9.2.1",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-native": "0.79.6",
     "react-native-vector-icons": "^9.2.0",
-    "react-native-web": "~0.19.6"
+    "react-native-web": "^0.20.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "@types/react": "~18.2.79",
+    "@types/react": "~19.0.10",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "eslint": "^8.20.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
@@ -36,7 +37,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-react": "^7.30.1",
     "prettier": "^2.7.1",
-    "typescript": "~5.3.3"
+    "typescript": "~5.8.3"
   },
   "private": true
 }

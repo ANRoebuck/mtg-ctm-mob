@@ -2,7 +2,7 @@
   "expo": {
     "name": "Compare the Magic",
     "slug": "CompareTheMagic",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "orientation": "portrait",
     "icon": "./assets/ctmlogo.png",
     "userInterfaceStyle": "light",
@@ -22,7 +22,7 @@
     },
     "android": {
       "package": "com.CompareTheMagic",
-      "versionCode": 2,
+      "versionCode": 3,
       "adaptiveIcon": {
         "foregroundImage": "./assets/ctmlogo.png",
         "backgroundColor": "#FFFFFF"
@@ -35,6 +35,19 @@
       "eas": {
         "projectId": "757ccd58-497f-4abb-8682-08d370324a7b"
       }
-    }
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 35,
+            "targetSdkVersion": 35,
+            "buildToolsVersion": "35.0.0",
+            "ndkVersion": "29.0.13113456"
+          }
+        }
+      ]
+    ]
   }
 }
