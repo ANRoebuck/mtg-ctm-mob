@@ -99,10 +99,14 @@ const Price = observer(({ result }: PriceProps) => {
 const styles = StyleSheet.create({
     main_container: {
         marginVertical: 8,
-        borderWidth: 1,
         padding: 10,
         borderRadius: 10,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        shadowColor: '#000',
+        shadowOffset: { width: 3, height: 3 },
+        shadowOpacity: 0.6,
+        shadowRadius: 6,
+        elevation: 6,
     },
     title_container: {},
     title: {

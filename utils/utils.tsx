@@ -32,86 +32,103 @@ const sellers = {
         name: 'Axion Now',
         logo: axionLogo,
         currency: currency.GBP,
+        region: 'UK',
     },
     boardsAndSwords: {
         name: 'Boards & Swords',
         logo: boardsAndSwordsLogo,
         currency: currency.GBP,
+        region: 'UK',
     },
     diceSaloon: {
         name: 'Dice Saloon',
         logo: diceSaloonLogo,
         currency: currency.GBP,
+        region: 'UK',
     },
     gameHQ: {
         name: 'Game HQ',
         logo: gameHQLogo,
         currency: currency.GBP,
+        region: 'UK',
     },
     gatheringPoint: {
         name: 'Gathering Point Games',
         logo: gatheringPoingLogo,
         currency: currency.GBP,
+        region: 'UK',
     },
     harlequins: {
         name: 'Harlequins',
         logo: harlequinsLogo,
         currency: currency.GBP,
+        region: 'UK',
     },
     highlanderGames: {
         name: 'Highlander Games',
         logo: highlanderGamesLogo,
         currency: currency.GBP,
+        region: 'UK',
     },
     londonMagic: {
         name: 'London Magic Traders',
         logo: londonMagicLogo,
         currency: currency.GBP,
+        region: 'UK',
     },
     lvlUp: {
         name: 'Lvl Up Gaming',
         logo: lvlUpLogo,
         currency: currency.GBP,
+        region: 'UK',
     },
     magicCardTrader: {
         name: 'Magic Card Trader',
         logo: magicCardTraderLogo,
         currency: currency.GBP,
+        region: 'UK',
     },
     magicMadhouse: {
         name: 'Magic Madhouse',
         logo: magicMadhouseLogo,
         currency: currency.GBP,
+        region: 'UK',
     },
     manaGaming: {
         name: 'Mana Gaming',
         logo: manaGamingLogo,
         currency: currency.GBP,
+        region: 'UK',
     },
     manaLeak: {
         name: 'Manaleak',
         logo: manaleakLogo,
         currency: currency.GBP,
+        region: 'UK',
     },
     pgLeeds: {
         name: 'Patriot Games Leeds',
         logo: pgLeedsLogo,
         currency: currency.GBP,
+        region: 'UK',
     },
     skywardFire: {
         name: 'Skyward Fire',
         logo: skywardFireLogo,
         currency: currency.GBP,
+        region: 'UK',
     },
     totalCards: {
         name: 'Total Cards',
         logo: totalCardsLogo,
         currency: currency.GBP,
+        region: 'UK',
     },
     trollTrader: {
         name: 'Troll Trader',
         logo: trollLogo,
         currency: currency.GBP,
+        region: 'UK',
     },
 
     // Non-UK
@@ -120,12 +137,13 @@ const sellers = {
         name: 'Star City Games',
         logo: starCityGamesLogo,
         currency: currency.USD,
+        region: 'International',
     },
 };
 
 export const configureSellers = (): SellerType[] => {
     return Object.values(sellers).map(
-        (seller): SellerType => ({ ...seller, enabled: true, favourite: false, loading: false, })
+        (seller): SellerType => ({ ...seller, enabled: true, favourite: false, loading: false })
     );
 };
 

@@ -60,11 +60,10 @@ const SellerOption = observer(({ seller }: SellerOptionProps) => {
             onPress={() => pricesStore.toggleSellerEnabled(seller.name)}
         >
             <View
-                style={
-                    seller.enabled
-                        ? styles.seller_enabled
-                        : styles.seller_disabled
-                }
+                style={[
+                    styles.seller_option,
+                    !seller.enabled && styles.seller_disabled
+                ]}
             >
                 <Image style={styles.seller_logo} source={seller.logo}></Image>
             </View>
@@ -101,7 +100,12 @@ const Options = observer(() => {
                 Stores - Press to Enable/Disable
             </Text>
             <View style={styles.options_container}>
-                {pricesStore.sellers.map((s, i) => (
+                {pricesStore.sellers.filter(s => s.region === 'UK').map((s, i) => (
+                    <SellerOption seller={s} key={i} />
+                ))}
+            </View>
+            <View style={[styles.options_container, styles.options_container_international]}>
+                {pricesStore.sellers.filter(s => s.region !== 'UK').map((s, i) => (
                     <SellerOption seller={s} key={i} />
                 ))}
             </View>
@@ -125,12 +129,23 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         justifyContent: 'space-around'
     },
+    options_container_international: {
+        borderTopWidth: 1,
+        borderTopColor: '#444',
+        paddingTop: 5,
+        marginTop: 5,
+    },
 
     sf_option_container: {
         backgroundColor: 'white',
         borderRadius: 10,
         padding: 10,
-        minWidth: 135
+        minWidth: 135,
+        shadowColor: '#000',
+        shadowOffset: { width: 3, height: 3 },
+        shadowOpacity: 0.6,
+        shadowRadius: 6,
+        elevation: 6,
     },
     sf_title_text: {
         marginBottom: 5
@@ -143,21 +158,20 @@ const styles = StyleSheet.create({
         marginLeft: 5
     },
 
-    seller_enabled: {
-        borderWidth: 1,
+    seller_option: {
         borderRadius: 10,
         marginVertical: 10,
         width: '45%',
         alignItems: 'center',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        shadowColor: '#000',
+        shadowOffset: { width: 3, height: 3 },
+        shadowOpacity: 0.6,
+        shadowRadius: 6,
+        elevation: 6,
     },
     seller_disabled: {
-        borderWidth: 1,
-        borderRadius: 10,
-        marginVertical: 10,
-        width: '45%',
-        alignItems: 'center',
-        backgroundColor: 'darkred'
+        opacity: 0.2,
     },
     seller_favourite: {},
     seller_logo: {
