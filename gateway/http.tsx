@@ -14,3 +14,8 @@ export const getAutocompleteSuggestions = (searchTerm: string): Promise<[]> =>
         .get(`${scryfall}/cards/autocomplete?q=${searchTerm}`)
         .then(({ data }) => data.data)
         .catch(() => []);
+
+export const getFaq = (): Promise<{ title: string; body: string }[]> =>
+    axios
+        .get(`${ctm}/info/faq`)
+        .then(({ data }) => data.faq);
